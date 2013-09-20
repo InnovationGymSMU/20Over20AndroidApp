@@ -48,8 +48,8 @@ public class MainScreenActivity extends Activity {
         listView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String viewText = ((ItemListRow)parent.getItemAtPosition(position)).getTagName();
-                Log.d(tag, "Picked tag " + viewText);
+                ItemListRow row = (ItemListRow)parent.getItemAtPosition(position);
+                onItemSelect(row);
             }
         });
     }
@@ -60,7 +60,13 @@ public class MainScreenActivity extends Activity {
 
         Intent intent = new Intent(this, NewItemRegistrationActivity.class);
         startActivity(intent);
+    }
 
+    public void onItemSelect(ItemListRow row) {
+        String viewText = row.getTagName();
+        Log.d(tag, "Picked tag " + viewText);
 
+        Intent intent = new Intent(this, FindTagActivity.class);
+        startActivity(intent);
     }
 }

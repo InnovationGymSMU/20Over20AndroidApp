@@ -30,6 +30,10 @@
             android:name="edu.SMU.PingItApp.temp"
             android:label="@string/title_activity_temp" >
         </activity>
+        <activity
+            android:name="edu.SMU.PingItApp.FindTagActivity"
+            android:label="@string/title_activity_find_tag" >
+        </activity>
     </application>
 
 </manifest>
