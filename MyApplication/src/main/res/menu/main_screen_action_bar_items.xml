@@ -3,10 +3,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/add_new_device_option"
+        android:id="@+id/add_new_item_option"
         android:icon="@android:drawable/ic_menu_add"
         android:title="@string/action_bar_add_item"
         android:showAsAction="ifRoom"
-        />
+        android:onClick="addNewItem" />
 
 </menu>
