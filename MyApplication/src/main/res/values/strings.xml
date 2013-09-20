@@ -6,5 +6,26 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_bar_add_item">Add Item</string>
     <string name="list_item_default_text">Item Text</string>
+    <string name="title_activity_new_item_registration">Register New Item</string>
+
+    <!-- strings for NewItemRegistrationActivity -->
+
+    <string name="item_name_label">Item Name:</string>
+    <string name="item_id_label">Item ID:</string>
+
+    <string-array name="item_id_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+    </string-array>
+
+    <string name="title_activity_temp">MainActivity</string>
 
 </resources>

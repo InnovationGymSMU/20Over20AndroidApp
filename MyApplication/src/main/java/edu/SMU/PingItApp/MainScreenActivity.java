@@ -57,10 +57,10 @@ public class MainScreenActivity extends Activity {
     public void addNewItem(MenuItem item) {
         Log.d(tag, "Ready to start device registration");
 
-        /*
-        Intent intent = new Intent(this, MainScreenActivity.class);
+
+        Intent intent = new Intent(this, NewItemRegistrationActivity.class);
         startActivity(intent);
-        */
+
 
     }
 }
