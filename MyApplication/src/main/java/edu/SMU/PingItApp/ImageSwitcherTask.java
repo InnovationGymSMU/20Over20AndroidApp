@@ -12,19 +12,22 @@ public class ImageSwitcherTask extends AsyncTask<Object, Object, Object> {
 
     private Context context;
     private ImageView image;
+    private int currentImage;
 
-    public ImageSwitcherTask(Context context) {
+    public ImageSwitcherTask(Context context, ImageView image) {
         this.context = context;
-
-        image = (ImageView)((Activity) context).findViewById(R.id.item_color);
+        currentImage = 1;
+        this.image = image;
     }
 
     @Override
     protected Object doInBackground(Object... params) {
 
         try {
-            Thread.sleep(1000);
-            publishProgress(null);
+            while(true) {
+                Thread.sleep(1000);
+                publishProgress(null);
+            }
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -34,7 +37,31 @@ public class ImageSwitcherTask extends AsyncTask<Object, Object, Object> {
 
     @Override
     protected void onProgressUpdate(Object... progress) {
-        //Do the image transition
+        if(currentImage == 6)
+            currentImage = 1;
+
+        switch (currentImage)
+        {
+            case 1:
+                image.setImageResource(R.drawable.ping_icon_1);
+                break;
+            case 2:
+                image.setImageResource(R.drawable.ping_icon_2);
+                break;
+            case 3:
+                image.setImageResource(R.drawable.ping_icon_3);
+                break;
+            case 4:
+                image.setImageResource(R.drawable.ping_icon_4);
+                break;
+            case 5:
+                image.setImageResource(R.drawable.ping_icon_5);
+                break;
+            default:
+                image.setImageResource(R.drawable.ping_icon_1);
+                break;
+        }
+        currentImage++;
     }
 
     @Override
