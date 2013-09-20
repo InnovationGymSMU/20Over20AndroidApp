@@ -14,14 +14,14 @@ import java.util.List;
 /**
  * Created by Chris on 9/19/13.
  */
-public class MainScreenListArrayAdapter extends ArrayAdapter<UserTagInfo>  {
+public class SelectionListArrayAdapter extends ArrayAdapter<UserTagInfo>  {
 
     private Context context;
     private int rowResourceId;
     private List<UserTagInfo> items;
     private TagAttributes tagAttributes;
 
-    public MainScreenListArrayAdapter(Context context, int layoutResourceId, List<UserTagInfo> items) {
+    public SelectionListArrayAdapter(Context context, int layoutResourceId, List<UserTagInfo> items) {
         super(context, layoutResourceId, items);
         this.context = context;
         this.rowResourceId = layoutResourceId;
@@ -37,8 +37,16 @@ public class MainScreenListArrayAdapter extends ArrayAdapter<UserTagInfo>  {
             row = inflater.inflate(rowResourceId, parent, false);
         }
         UserTagInfo rowItem = items.get(position);
-        ((TextView)row.findViewById(R.id.item_name)).setText(rowItem.getTagName());
-        ((ImageView)row.findViewById(R.id.item_color)).setBackgroundColor(tagAttributes.getColorForTag(rowItem.getTagID()));
+        if (rowResourceId == R.layout.item_selection_list_row) {
+            ((TextView)row.findViewById(R.id.item_name)).setText(rowItem.getTagName());
+            ((ImageView)row.findViewById(R.id.item_color)).setBackgroundColor(tagAttributes.getColorForTag(rowItem.getTagID()));
+        } else if (rowResourceId == R.layout.spinner_selection_list_row) {
+            ((TextView)row.findViewById(R.id.spinner_name)).setText(rowItem.getTagName());
+            ((ImageView)row.findViewById(R.id.spinner_color)).setBackgroundColor(tagAttributes.getColorForTag(rowItem.getTagID()));
+        }
+
+
+
         return row;
     }
 }

@@ -47,7 +47,7 @@ public class MainScreenActivity extends Activity {
 
     public void initializeListViewAdapter() {
 
-        adapter = new MainScreenListArrayAdapter(this, R.layout.item_selection_list_row, new LinkedList<UserTagInfo>());
+        adapter = new SelectionListArrayAdapter(this, R.layout.item_selection_list_row, new LinkedList<UserTagInfo>());
 
         ListView listView = (ListView)findViewById(R.id.main_screen_item_list_view);
         listView.setAdapter(adapter);
@@ -80,7 +80,7 @@ public class MainScreenActivity extends Activity {
                 Toast.makeText(this, "Successfully registered " + registeredName, Toast.LENGTH_SHORT).show();
                 updateListView();
             } else {
-                Toast.makeText(this, "Registration cancelled", Toast.LENGTH_SHORT).show();
+                Log.d(tag, "Registration was cancelled");
             }
         }
     }

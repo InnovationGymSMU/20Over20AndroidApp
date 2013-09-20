@@ -55,7 +55,7 @@ public class TagAttributes {
 
     public int getColorForTag(int tagID) {
         if (!colorKeys.containsKey(tagID)) {
-            return Color.parseColor("#FFFF0000");
+            return Color.parseColor("#00000000");
         }
         return Color.parseColor(colorKeys.get(tagID));
     }

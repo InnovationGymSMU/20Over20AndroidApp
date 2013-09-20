@@ -1,5 +1,6 @@
 package edu.SMU.PingItApp;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
@@ -8,6 +9,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -32,6 +34,11 @@ public class NewItemRegistrationActivity extends Activity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_item_registration);
+
+        ActionBar actionBar = getActionBar();
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setIcon(android.R.drawable.ic_menu_close_clear_cancel);
 
         database = new DeviceDatabase(this);
         textEdited = false;
@@ -158,6 +165,12 @@ public class NewItemRegistrationActivity extends Activity {
         intent.putExtra(getString(R.string.registration_result_name), userTagInfo.getTagName());
         setResult(REGISTRATION_RESPONSE_SUCCESS, intent);
         finish();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        finish();
+        return true;
     }
 
 }
