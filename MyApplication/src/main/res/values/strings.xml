@@ -11,6 +11,8 @@
     <string name="stop_pinging_button_text">Stop Pinging</string>
     <string name="not_pinging_label_text">Press Start Pinging to begin</string>
     <string name="pinging_label_text">Pinging</string>
+    <string name="registration_result_id">RegistrationResultID</string>
+    <string name="registration_result_name">RegistrationResultName</string>
 
     <!-- strings for NewItemRegistrationActivity -->
 

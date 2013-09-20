@@ -17,18 +17,17 @@ public class DeviceDatabase {
     private static final String tag = "DeviceDatabase";
 
     private static final String DATABASE_NAME = "Devices";
-    private static final int DATABASE_VERSION = 1;
-
-    private Context context;
+    private static final int DATABASE_VERSION = 3;
 
     private static final String DEVICE_TABLE = "DeviceTable";
     private static final String TAG_ID = "TagID";
     private static final String TAG_NAME = "TagName";
 
     private static final String CREATE_DEVICE_TABLE =
-            "CREATE TABLE " + DEVICE_TABLE + "(" + TAG_ID + " TEXT PRIMARY KEY, " + TAG_NAME + "TEXT);";
+            "CREATE TABLE " + DEVICE_TABLE + "(" + TAG_ID + " TEXT PRIMARY KEY, " + TAG_NAME + " TEXT);";
 
     private static DatabaseHelper helper = null;
+    private Context context;
 
     public DeviceDatabase(Context context) {
         this.context = context.getApplicationContext();
@@ -48,6 +47,7 @@ public class DeviceDatabase {
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             db.execSQL("DROP TABLE IF EXISTS " + DEVICE_TABLE);
+            onCreate(db);
         }
     }
 
@@ -65,7 +65,7 @@ public class DeviceDatabase {
     public void addTag(TagInfo tag) {
         //Setup the values to insert
         ContentValues values = new ContentValues();
-        values.put(TAG_ID, tag.getTagID());
+        values.put(TAG_ID, Integer.toString(tag.getTagID()));
         values.put(TAG_NAME, tag.getTagName());
 
         //Insert into the DB
