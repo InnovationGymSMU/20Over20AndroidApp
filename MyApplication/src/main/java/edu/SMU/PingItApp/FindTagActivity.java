@@ -7,12 +7,15 @@ import android.app.Activity;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 public class FindTagActivity extends Activity {
 
     boolean isPinging;
     Button pingButton;
     MediaPlayer mediaPlayer;
+    ImageView pingImageView;
+    ImageSwitcherTask task;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,6 +24,7 @@ public class FindTagActivity extends Activity {
         isPinging = false;
         pingButton = (Button) findViewById(R.id.pingButton);
         mediaPlayer = new MediaPlayer();
+        pingImageView = (ImageView) findViewById(R.id.pingImageView);
     }
 
 
@@ -38,6 +42,8 @@ public class FindTagActivity extends Activity {
             isPinging = true;
             pingButton.setText("Stop Pinging");
 
+            task = new ImageSwitcherTask(this, pingImageView);
+            task.execute(null);
             try
             {
                 AssetFileDescriptor descriptor = getAssets().openFd("sax.mp3");
@@ -60,12 +66,14 @@ public class FindTagActivity extends Activity {
             mediaPlayer.release();
             mediaPlayer = new MediaPlayer();
 
+            task.cancel(true);
+            pingImageView.setImageResource(R.drawable.ping_icon_1);
+
             isPinging = false;
             pingButton.setText("Start Pinging");
         }
 
-        ImageSwitcherTask task = new ImageSwitcherTask(this);
-        task.execute(null);
+
     }
     
 }
