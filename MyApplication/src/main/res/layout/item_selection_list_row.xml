@@ -16,7 +16,8 @@
         android:maxWidth="@dimen/list_view_image_size"
         android:src="@drawable/blank_image"
         android:background="@android:color/holo_red_dark"
-        android:adjustViewBounds="true"/>
+        android:adjustViewBounds="true"
+        android:layout_marginLeft="@dimen/list_view_padding"/>
 
     <TextView
         android:id="@+id/item_name"

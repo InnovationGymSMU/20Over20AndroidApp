@@ -13,14 +13,15 @@
     <string name="pinging_label_text">Pinging</string>
     <string name="registration_result_id">RegistrationResultID</string>
     <string name="registration_result_name">RegistrationResultName</string>
+    <string name="main_screen_header_text">What are you looking for?</string>
 
     <!-- strings for NewItemRegistrationActivity -->
 
-    <string name="item_name_label">Item Name...</string>
+    <string name="item_name_label">What are you tagging?</string>
     <string name="item_id_label">Item ID...</string>
 
     <string-array name="item_id_values">
-        <item>Select Tag ID...</item>
+        <item>Which tag are you using?</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>

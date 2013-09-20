@@ -13,16 +13,7 @@
         android:layout_alignParentLeft="true"
         android:onClick="saveNewItem"/>
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/itemNameEdit"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="100dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentLeft="true"
-        android:hint="@string/item_name_label"
-        android:gravity="center"/>
+
 
     <Spinner
         android:layout_width="wrap_content"
@@ -33,5 +24,15 @@
         android:layout_marginTop="12dp"
         android:gravity="center"/>
 
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/itemNameEdit"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/registration_text_input_margin"
+        android:layout_alignLeft="@id/itemIDSelector"
+        android:layout_alignRight="@id/itemIDSelector"
+        android:hint="@string/item_name_label"
+        android:gravity="center"/>
 
 </RelativeLayout>
