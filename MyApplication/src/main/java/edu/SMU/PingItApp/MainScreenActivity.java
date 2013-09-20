@@ -3,7 +3,6 @@ package edu.SMU.PingItApp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
-import android.os.Debug;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,7 +23,7 @@ public class MainScreenActivity extends Activity {
     private static final String tag = "MainScreenActivity";
     private static final int REGISTRATION_REQUEST_CODE = 1000;
     private DeviceDatabase db;
-    private ArrayAdapter<ItemListRow> adapter;
+    private ArrayAdapter<UserTagInfo> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,13 +41,13 @@ public class MainScreenActivity extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main_screen_action_bar_items, menu);
+        inflater.inflate(R.menu.main_screen, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     public void initializeListViewAdapter() {
 
-        adapter = new MainScreenListArrayAdapter(this, R.layout.item_selection_list_row, new LinkedList<ItemListRow>());
+        adapter = new MainScreenListArrayAdapter(this, R.layout.item_selection_list_row, new LinkedList<UserTagInfo>());
 
         ListView listView = (ListView)findViewById(R.id.main_screen_item_list_view);
         listView.setAdapter(adapter);
@@ -89,15 +88,11 @@ public class MainScreenActivity extends Activity {
     public void updateListView() {
 
         //Pull all the registered tags, and create new item rows for each one
-        List<TagInfo> allTags = db.getAllTags();
-        List<ItemListRow> allRows = new LinkedList<ItemListRow>();
-        for (TagInfo tag : allTags) {
-            allRows.add(new ItemListRow(tag.getTagName(), null));
-        }
+        List<UserTagInfo> allTags = db.getAllTags();
 
         //Add it to our home screen list
         adapter.clear();
-        adapter.addAll(allRows);
+        adapter.addAll(allTags);
 
     }
 

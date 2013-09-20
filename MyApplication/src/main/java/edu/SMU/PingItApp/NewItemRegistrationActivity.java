@@ -144,17 +144,17 @@ public class NewItemRegistrationActivity extends Activity {
             Toast.makeText(this, "This tag has already been registered", Toast.LENGTH_SHORT).show();
         } else {
             //If not, then add it to the database
-            TagInfo tagInfo = new TagInfo(nameOfItem, IDOfItem);
-            database.addTag(tagInfo);
-            completeSuccessfulRegistration(tagInfo);
+            UserTagInfo userTagInfo = new UserTagInfo(nameOfItem, IDOfItem);
+            database.addTag(userTagInfo);
+            completeSuccessfulRegistration(userTagInfo);
         }
     }
 
-    public void completeSuccessfulRegistration(TagInfo tagInfo) {
+    public void completeSuccessfulRegistration(UserTagInfo userTagInfo) {
         //Package the tag info object so that the home page can see the results
         Intent intent = new Intent();
-        intent.putExtra(getString(R.string.registration_result_id), tagInfo.getTagID());
-        intent.putExtra(getString(R.string.registration_result_name), tagInfo.getTagName());
+        intent.putExtra(getString(R.string.registration_result_id), userTagInfo.getTagID());
+        intent.putExtra(getString(R.string.registration_result_name), userTagInfo.getTagName());
         setResult(REGISTRATION_RESPONSE_SUCCESS, intent);
         finish();
     }

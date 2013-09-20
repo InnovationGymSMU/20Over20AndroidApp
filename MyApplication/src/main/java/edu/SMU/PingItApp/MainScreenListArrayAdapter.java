@@ -14,17 +14,19 @@ import java.util.List;
 /**
  * Created by Chris on 9/19/13.
  */
-public class MainScreenListArrayAdapter extends ArrayAdapter<ItemListRow>  {
+public class MainScreenListArrayAdapter extends ArrayAdapter<UserTagInfo>  {
 
     private Context context;
     private int rowResourceId;
-    private List<ItemListRow> items;
+    private List<UserTagInfo> items;
+    private TagAttributes tagAttributes;
 
-    public MainScreenListArrayAdapter(Context context, int layoutResourceId, List<ItemListRow> items) {
+    public MainScreenListArrayAdapter(Context context, int layoutResourceId, List<UserTagInfo> items) {
         super(context, layoutResourceId, items);
         this.context = context;
         this.rowResourceId = layoutResourceId;
         this.items = items;
+        this.tagAttributes = new TagAttributes(context);
     }
 
     @Override
@@ -34,7 +36,9 @@ public class MainScreenListArrayAdapter extends ArrayAdapter<ItemListRow>  {
             LayoutInflater inflater = ((Activity)context).getLayoutInflater();
             row = inflater.inflate(rowResourceId, parent, false);
         }
-        ((TextView)row.findViewById(R.id.item_name)).setText(items.get(position).getTagName());
+        UserTagInfo rowItem = items.get(position);
+        ((TextView)row.findViewById(R.id.item_name)).setText(rowItem.getTagName());
+        ((ImageView)row.findViewById(R.id.item_color)).setBackgroundColor(tagAttributes.getColorForTag(rowItem.getTagID()));
         return row;
     }
 }

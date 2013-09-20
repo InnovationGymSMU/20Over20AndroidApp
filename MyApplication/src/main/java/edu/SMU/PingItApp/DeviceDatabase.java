@@ -62,7 +62,7 @@ public class DeviceDatabase {
         helper.close();
     }
 
-    public void addTag(TagInfo tag) {
+    public void addTag(UserTagInfo tag) {
         //Setup the values to insert
         ContentValues values = new ContentValues();
         values.put(TAG_ID, Integer.toString(tag.getTagID()));
@@ -76,8 +76,8 @@ public class DeviceDatabase {
         }
     }
 
-    public List<TagInfo> getAllTags() {
-        List<TagInfo> allTags = new LinkedList<TagInfo>();
+    public List<UserTagInfo> getAllTags() {
+        List<UserTagInfo> allTags = new LinkedList<UserTagInfo>();
 
         String query = "SELECT * FROM " + DEVICE_TABLE;
 
@@ -92,8 +92,8 @@ public class DeviceDatabase {
                 do {
                     int tagID = Integer.parseInt(cursor.getString(0));
                     String tagName = cursor.getString(1);
-                    TagInfo tagInfo = new TagInfo(tagName, tagID);
-                    allTags.add(tagInfo);
+                    UserTagInfo userTagInfo = new UserTagInfo(tagName, tagID);
+                    allTags.add(userTagInfo);
                 } while (cursor.moveToNext());
             }
 
