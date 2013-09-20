@@ -7,20 +7,25 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.hardware.Camera;
 
 public class FindTagActivity extends Activity {
 
     boolean isPinging;
+    boolean flashlightOn = false;
     Button pingButton;
     MediaPlayer mediaPlayer;
     ImageView pingImageView;
     ImageSwitcherTask task;
     String personalizedButtonText;
+    MenuItem flashlightButton;
+    Camera camera;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +54,10 @@ public class FindTagActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.find_tag, menu);
-        return true;
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.find_tag, menu);
+        flashlightButton = menu.findItem(R.id.toggle_flashlight);
+        return super.onCreateOptionsMenu(menu);
     }
 
     public void playMusic(View view)
@@ -100,5 +107,9 @@ public class FindTagActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem menuItem) {
         finish();
         return true;
+    }
+
+    public void toggleFlashlight(MenuItem item){
+        FlashlightController.toggleFlashlight(flashlightButton);
     }
 }

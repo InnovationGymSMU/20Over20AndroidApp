@@ -26,6 +26,8 @@ public class MainScreenActivity extends Activity {
     private DeviceDatabase db;
     private ArrayAdapter<UserTagInfo> adapter;
 
+    MenuItem flashlightButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +45,7 @@ public class MainScreenActivity extends Activity {
         // Inflate the menu; this adds items to the action bar if it is present.
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_screen, menu);
+        flashlightButton = menu.findItem(R.id.toggle_flashlight);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -134,5 +137,9 @@ public class MainScreenActivity extends Activity {
             updateListView();
         }
         return true;
+    }
+
+    public void toggleFlashlight(MenuItem item) {
+        FlashlightController.toggleFlashlight(flashlightButton);
     }
 }

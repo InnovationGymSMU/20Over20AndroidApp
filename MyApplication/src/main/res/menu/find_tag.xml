@@ -1,3 +1,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <item
+        android:id="@+id/toggle_flashlight"
+        android:icon="@drawable/flashlight_white"
+        android:title="@string/action_bar_add_item"
+        android:showAsAction="ifRoom"
+        android:onClick="toggleFlashlight" />
 </menu>
