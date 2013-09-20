@@ -16,7 +16,7 @@ public class ImageSwitcherTask extends AsyncTask<Object, Object, Object> {
 
     public ImageSwitcherTask(Context context, ImageView image) {
         this.context = context;
-        currentImage = 1;
+        currentImage = 2;
         this.image = image;
     }
 
@@ -25,7 +25,7 @@ public class ImageSwitcherTask extends AsyncTask<Object, Object, Object> {
 
         try {
             while(true) {
-                Thread.sleep(1000);
+                Thread.sleep(400);
                 publishProgress(null);
             }
         } catch (InterruptedException e) {

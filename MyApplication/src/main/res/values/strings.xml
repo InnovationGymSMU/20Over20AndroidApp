@@ -10,7 +10,7 @@
     <string name="start_pinging_button_text">Start Pinging</string>
     <string name="stop_pinging_button_text">Stop Pinging</string>
     <string name="not_pinging_label_text">Press Start Pinging to begin</string>
-    <string name="pinging_label_text">Pinging</string>
+    <string name="pinging_label_text">Pinging...</string>
     <string name="registration_result_id">RegistrationResultID</string>
     <string name="registration_result_name">RegistrationResultName</string>
     <string name="main_screen_header_text">What are you looking for?</string>

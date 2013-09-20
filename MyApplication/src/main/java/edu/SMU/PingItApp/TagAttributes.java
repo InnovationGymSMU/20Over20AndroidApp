@@ -12,8 +12,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Created by Chris on 9/20/13.
@@ -31,7 +34,7 @@ public class TagAttributes {
     }
 
     private void loadColorKeys() {
-        colorKeys = new HashMap<Integer, String>();
+        colorKeys = new TreeMap<Integer, String>();
 
         try {
             InputStream inputStream = context.getAssets().open("TagData.txt");
@@ -58,5 +61,18 @@ public class TagAttributes {
             return Color.parseColor("#00000000");
         }
         return Color.parseColor(colorKeys.get(tagID));
+    }
+
+    public List<UserTagInfo> getAllAvailableTags() {
+
+        List<UserTagInfo> tagInfoList = new ArrayList<UserTagInfo>();
+        tagInfoList.add(new UserTagInfo(context.getString(R.string.item_name_label), 0));
+
+        for (Map.Entry<Integer, String> item : colorKeys.entrySet()) {
+            int colorNumber = item.getKey().intValue();
+            tagInfoList.add(new UserTagInfo("" + colorNumber, colorNumber));
+        }
+
+        return tagInfoList;
     }
 }

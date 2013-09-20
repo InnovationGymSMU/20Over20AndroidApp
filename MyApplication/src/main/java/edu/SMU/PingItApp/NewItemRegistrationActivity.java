@@ -48,6 +48,8 @@ public class NewItemRegistrationActivity extends Activity {
 
         String[] itemIdValues = getResources().getStringArray(R.array.item_id_values);
 
+
+
         ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item, itemIdValues) {
             @Override
             public View getView(int position, View convertView,ViewGroup parent) {
@@ -66,6 +68,7 @@ public class NewItemRegistrationActivity extends Activity {
                 //R.array.item_id_values, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         itemIdSpinner.setAdapter(adapter);
+
 
         itemNameInput = (EditText) findViewById(R.id.itemNameEdit);
         itemNameInput.addTextChangedListener(new TextWatcher() {

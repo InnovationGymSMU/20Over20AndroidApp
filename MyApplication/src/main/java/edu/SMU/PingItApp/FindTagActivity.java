@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 public class FindTagActivity extends Activity {
 
@@ -42,6 +43,9 @@ public class FindTagActivity extends Activity {
             isPinging = true;
             pingButton.setText("Stop Pinging");
 
+            ((TextView)findViewById(R.id.find_item_title_view)).setText(R.string.pinging_label_text);
+            ((Button)findViewById(R.id.pingButton)).setText(R.string.stop_pinging_button_text);
+
             task = new ImageSwitcherTask(this, pingImageView);
             task.execute(null);
             try
@@ -62,6 +66,9 @@ public class FindTagActivity extends Activity {
 
         else if(isPinging == true)
         {
+
+            ((TextView)findViewById(R.id.find_item_title_view)).setText(R.string.not_pinging_label_text);
+            ((Button)findViewById(R.id.pingButton)).setText(R.string.start_pinging_button_text);
             mediaPlayer.stop();
             mediaPlayer.release();
             mediaPlayer = new MediaPlayer();

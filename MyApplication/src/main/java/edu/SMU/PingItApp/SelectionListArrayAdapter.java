@@ -2,6 +2,7 @@ package edu.SMU.PingItApp;
 
 import android.app.Activity;
 import android.content.Context;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +38,8 @@ public class SelectionListArrayAdapter extends ArrayAdapter<UserTagInfo>  {
             row = inflater.inflate(rowResourceId, parent, false);
         }
         UserTagInfo rowItem = items.get(position);
+
+
         if (rowResourceId == R.layout.item_selection_list_row) {
             ((TextView)row.findViewById(R.id.item_name)).setText(rowItem.getTagName());
             ((ImageView)row.findViewById(R.id.item_color)).setBackgroundColor(tagAttributes.getColorForTag(rowItem.getTagID()));
@@ -45,8 +48,14 @@ public class SelectionListArrayAdapter extends ArrayAdapter<UserTagInfo>  {
             ((ImageView)row.findViewById(R.id.spinner_color)).setBackgroundColor(tagAttributes.getColorForTag(rowItem.getTagID()));
         }
 
-
-
         return row;
+    }
+
+    @Override
+    public View getDropDownView(int position, View convertView, ViewGroup parent) {
+        View v = super.getDropDownView(position, convertView, parent);
+        View row = v;
+        ((TextView) row.findViewById(R.id.spinner_name)).setGravity(Gravity.CENTER);
+        return v;
     }
 }
