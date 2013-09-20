@@ -56,7 +56,7 @@ public class MainScreenActivity extends Activity {
         listView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ItemListRow row = (ItemListRow)parent.getItemAtPosition(position);
+                UserTagInfo row = (UserTagInfo)parent.getItemAtPosition(position);
                 onItemSelect(row);
             }
         });
@@ -96,7 +96,7 @@ public class MainScreenActivity extends Activity {
 
     }
 
-    public void onItemSelect(ItemListRow row) {
+    public void onItemSelect(UserTagInfo row) {
         String viewText = row.getTagName();
         Log.d(tag, "Picked tag " + viewText);
 
