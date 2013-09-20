@@ -1,9 +1,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:weightSum="2" >
+    android:orientation="vertical"
+    android:weightSum="8" >
 
+    <LinearLayout
+        android:id="@+id/inputFieldsLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="7" >
     <LinearLayout
         android:id="@+id/first"
         android:layout_width="fill_parent"
@@ -37,6 +43,7 @@
                 android:layout_marginTop="20dp"
                 android:text="@string/item_id_label" />
         </RelativeLayout>
+
     </LinearLayout>
 
     <LinearLayout
@@ -62,21 +69,31 @@
 
             <Spinner
                 android:id="@+id/itemIDSelector"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:dropDownWidth="100dp"
+                android:minWidth="100dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/itemNameEdit" />
-
-            <EditText
-                android:id="@+id/itemIDEdit"
-                android:width="300px"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_below="@id/itemIDSelector" />
+                android:layout_below="@id/itemNameEdit"
+                android:layout_marginLeft="10dp" />
 
 
         </RelativeLayout>
     </LinearLayout>
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/saveItemButton"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_gravity="bottom"
+        android:layout_weight="1"
+        android:layout_margin="20dp"
+        android:text="@string/save_item_button"
+
+        android:onClick="saveNewItem"/>
 
 </LinearLayout>

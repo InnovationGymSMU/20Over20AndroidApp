@@ -26,6 +26,8 @@
         <item>10</item>
     </string-array>
 
+    <string name="save_item_button">Save Item!</string>
+
     <string name="title_activity_temp">MainActivity</string>
 
 </resources>
