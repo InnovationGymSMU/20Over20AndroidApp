@@ -139,9 +139,10 @@ public class NewItemRegistrationActivity extends Activity {
         Log.d("NewItemRegistrationActivity", "" + IDOfItem);
 
         //Check to see if the tag is already registered
-        boolean isIdTaken = database.isTagAlreadyRegistered(IDOfItem);
-        if (isIdTaken) {
-            Toast.makeText(this, "This tag has already been registered", Toast.LENGTH_SHORT).show();
+        //boolean isIdTaken = database.isTagAlreadyRegistered(IDOfItem);
+        UserTagInfo tagInfo = database.getTagInfoFromId(IDOfItem);
+        if (tagInfo != null) {
+            Toast.makeText(this, "This tag is already registered as " + tagInfo.getTagName(), Toast.LENGTH_SHORT).show();
         } else {
             //If not, then add it to the database
             UserTagInfo userTagInfo = new UserTagInfo(nameOfItem, IDOfItem);

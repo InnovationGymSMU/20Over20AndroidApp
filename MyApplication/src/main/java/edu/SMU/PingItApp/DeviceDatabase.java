@@ -119,4 +119,22 @@ public class DeviceDatabase {
 
         return hasElements;
     }
+
+    public UserTagInfo getTagInfoFromId(int tagID) {
+        String query = "SELECT * FROM " + DEVICE_TABLE +
+                " WHERE " + TAG_ID + " = " + tagID + ";";
+
+        UserTagInfo userTagInfo = null;
+        synchronized (helper) {
+            SQLiteDatabase db = openDatabaseConnection();
+            Cursor cursor = db.rawQuery(query, null);
+            if (cursor.moveToFirst()) {
+                String tagName = cursor.getString(1);
+                userTagInfo = new UserTagInfo(tagName, tagID);
+            }
+            closeDatabaseConnection();
+        }
+
+        return userTagInfo;
+    }
 }

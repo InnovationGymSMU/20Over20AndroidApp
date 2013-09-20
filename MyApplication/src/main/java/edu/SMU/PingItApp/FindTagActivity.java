@@ -63,6 +63,9 @@ public class FindTagActivity extends Activity {
             isPinging = false;
             pingButton.setText("Start Pinging");
         }
+
+        ImageSwitcherTask task = new ImageSwitcherTask(this);
+        task.execute(null);
     }
     
 }
