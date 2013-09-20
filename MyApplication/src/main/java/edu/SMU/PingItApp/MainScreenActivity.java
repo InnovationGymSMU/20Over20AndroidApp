@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -60,6 +61,7 @@ public class MainScreenActivity extends Activity {
                 onItemSelect(row);
             }
         });
+        registerForContextMenu(listView);
     }
 
     public void addNewItem(MenuItem item) {
@@ -101,6 +103,36 @@ public class MainScreenActivity extends Activity {
         Log.d(tag, "Picked tag " + viewText);
 
         Intent intent = new Intent(this, FindTagActivity.class);
+        intent.putExtra("TagName", viewText);
         startActivity(intent);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View view,
+                                    ContextMenu.ContextMenuInfo menuInfo) {
+        if(view.getId()==R.id.main_screen_item_list_view) {
+            AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
+            menu.setHeaderTitle(adapter.getItem(info.position).getTagName());
+            String[] menuItems = {"Delete"};
+            for(int i = 0; i < menuItems.length; i++){
+                menu.add(Menu.NONE, i, i, menuItems[i]);
+            }
+        }
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item){
+        AdapterView.AdapterContextMenuInfo info =
+                (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
+
+        int menuItemIndex = item.getItemId();
+
+        if(menuItemIndex == 0)
+        {
+            UserTagInfo tagInfo = adapter.getItem(info.position);
+            db.deleteTag(tagInfo);
+            updateListView();
+        }
+        return true;
     }
 }

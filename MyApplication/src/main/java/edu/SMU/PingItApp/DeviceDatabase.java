@@ -137,4 +137,12 @@ public class DeviceDatabase {
 
         return userTagInfo;
     }
+
+    public void deleteTag(UserTagInfo info){
+        synchronized (helper){
+            SQLiteDatabase db = openDatabaseConnection();
+            db.delete(DEVICE_TABLE, TAG_ID + " = \"" + info.getTagID() + "\"", null );
+            closeDatabaseConnection();
+        }
+    }
 }

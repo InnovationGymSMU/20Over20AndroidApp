@@ -1,10 +1,13 @@
 package edu.SMU.PingItApp;
 
+import android.app.ActionBar;
+import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -17,15 +20,29 @@ public class FindTagActivity extends Activity {
     MediaPlayer mediaPlayer;
     ImageView pingImageView;
     ImageSwitcherTask task;
+    String personalizedButtonText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_tag);
 
+        ActionBar actionBar = getActionBar();
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setIcon(android.R.drawable.ic_menu_close_clear_cancel);
+
         isPinging = false;
         pingButton = (Button) findViewById(R.id.pingButton);
         mediaPlayer = new MediaPlayer();
         pingImageView = (ImageView) findViewById(R.id.pingImageView);
+
+        personalizedButtonText = getString(R.string.start_pinging_button_text);
+        Intent intent = getIntent();
+        if (intent != null) {
+            personalizedButtonText += (" for " + intent.getStringExtra("TagName"));
+        }
+        pingButton.setText(personalizedButtonText);
     }
 
 
@@ -41,10 +58,9 @@ public class FindTagActivity extends Activity {
         if(isPinging == false)
         {
             isPinging = true;
-            pingButton.setText("Stop Pinging");
+            pingButton.setText(R.string.pinging_label_text);
 
-            ((TextView)findViewById(R.id.find_item_title_view)).setText(R.string.pinging_label_text);
-            ((Button)findViewById(R.id.pingButton)).setText(R.string.stop_pinging_button_text);
+            pingButton.setText(R.string.stop_pinging_button_text);
 
             task = new ImageSwitcherTask(this, pingImageView);
             task.execute(null);
@@ -66,9 +82,7 @@ public class FindTagActivity extends Activity {
 
         else if(isPinging == true)
         {
-
-            ((TextView)findViewById(R.id.find_item_title_view)).setText(R.string.not_pinging_label_text);
-            ((Button)findViewById(R.id.pingButton)).setText(R.string.start_pinging_button_text);
+            pingButton.setText(personalizedButtonText);
             mediaPlayer.stop();
             mediaPlayer.release();
             mediaPlayer = new MediaPlayer();
@@ -77,10 +91,14 @@ public class FindTagActivity extends Activity {
             pingImageView.setImageResource(R.drawable.ping_icon_1);
 
             isPinging = false;
-            pingButton.setText("Start Pinging");
         }
 
 
     }
-    
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        finish();
+        return true;
+    }
 }
