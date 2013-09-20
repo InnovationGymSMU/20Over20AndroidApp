@@ -158,5 +158,5 @@ public class NewItemRegistrationActivity extends Activity {
         setResult(REGISTRATION_RESPONSE_SUCCESS, intent);
         finish();
     }
-    
+
 }
