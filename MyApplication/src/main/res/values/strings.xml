@@ -16,10 +16,11 @@
 
     <!-- strings for NewItemRegistrationActivity -->
 
-    <string name="item_name_label">Item Name:</string>
-    <string name="item_id_label">Item ID:</string>
+    <string name="item_name_label">Item Name...</string>
+    <string name="item_id_label">Item ID...</string>
 
     <string-array name="item_id_values">
+        <item>Select Tag ID...</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>

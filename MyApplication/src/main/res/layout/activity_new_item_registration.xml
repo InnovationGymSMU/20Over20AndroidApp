@@ -1,99 +1,35 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:weightSum="8" >
-
-    <LinearLayout
-        android:id="@+id/inputFieldsLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_weight="7" >
-    <LinearLayout
-        android:id="@+id/first"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_weight="1" >
-
-        <RelativeLayout
-            android:id="@+id/firstpane"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp" >
-
-            <TextView
-                android:id="@+id/itemNameLabel"
-                android:textSize="20sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="100dp"
-                android:text="@string/item_name_label" />
-
-            <TextView
-                android:id="@+id/itemIDLabel"
-                android:textSize="20sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/itemNameLabel"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="20dp"
-                android:text="@string/item_id_label" />
-        </RelativeLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/second"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_weight="1" >
-
-        <RelativeLayout
-            android:id="@+id/secondpane"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp" >
-
-            <EditText
-                android:id="@+id/itemNameEdit"
-                android:width="300px"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="95dp"
-                android:inputType="text" />
-
-            <Spinner
-                android:id="@+id/itemIDSelector"
-                android:textAlignment="center"
-                android:gravity="center"
-                android:dropDownWidth="100dp"
-                android:minWidth="100dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/itemNameEdit"
-                android:layout_marginLeft="10dp" />
-
-
-        </RelativeLayout>
-    </LinearLayout>
-
-
-    </LinearLayout>
+    android:layout_height="match_parent" >
 
     <Button
-        android:id="@+id/saveItemButton"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_width="fill_parent"
-        android:layout_gravity="bottom"
-        android:layout_weight="1"
-        android:layout_margin="20dp"
-        android:text="@string/save_item_button"
+        android:text="Save Item!"
+        android:id="@+id/saveItemButton"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true" />
 
-        android:onClick="saveNewItem"/>
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/itemNameEdit"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="100dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
+        android:hint="@string/item_name_label"
+        android:gravity="center"/>
 
-</LinearLayout>
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/itemIDSelector"
+        android:layout_below="@+id/itemNameEdit"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp"
+        android:gravity="center" />
+
+
+</RelativeLayout>
