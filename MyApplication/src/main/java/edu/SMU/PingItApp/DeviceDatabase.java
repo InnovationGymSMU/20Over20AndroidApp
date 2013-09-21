@@ -6,6 +6,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -22,9 +26,13 @@ public class DeviceDatabase {
     private static final String DEVICE_TABLE = "DeviceTable";
     private static final String TAG_ID = "TagID";
     private static final String TAG_NAME = "TagName";
+    private static final String REGISTRATION_DATE = "RegistrationDate";
 
     private static final String CREATE_DEVICE_TABLE =
-            "CREATE TABLE " + DEVICE_TABLE + "(" + TAG_ID + " TEXT PRIMARY KEY, " + TAG_NAME + " TEXT);";
+            "CREATE TABLE " + DEVICE_TABLE + "(" +
+                    TAG_ID + " TEXT PRIMARY KEY, " +
+                    TAG_NAME + " TEXT " +
+                    REGISTRATION_DATE + " TEXT);";
 
     private static DatabaseHelper helper = null;
     private Context context;
@@ -63,10 +71,16 @@ public class DeviceDatabase {
     }
 
     public void addTag(UserTagInfo tag) {
+
+        SimpleDateFormat format = new SimpleDateFormat("MM-dd-yyyy");
+        Date date = new Date();
+        String formattedDate = format.format(date);
+
         //Setup the values to insert
         ContentValues values = new ContentValues();
         values.put(TAG_ID, Integer.toString(tag.getTagID()));
         values.put(TAG_NAME, tag.getTagName());
+        values.put(REGISTRATION_DATE, formattedDate);
 
         //Insert into the DB
         synchronized (helper) {
@@ -92,7 +106,8 @@ public class DeviceDatabase {
                 do {
                     int tagID = Integer.parseInt(cursor.getString(0));
                     String tagName = cursor.getString(1);
-                    UserTagInfo userTagInfo = new UserTagInfo(tagName, tagID);
+                    String registrationDate = cursor.getString(2);
+                    UserTagInfo userTagInfo = new UserTagInfo(tagName, tagID, registrationDate);
                     allTags.add(userTagInfo);
                 } while (cursor.moveToNext());
             }
@@ -130,7 +145,8 @@ public class DeviceDatabase {
             Cursor cursor = db.rawQuery(query, null);
             if (cursor.moveToFirst()) {
                 String tagName = cursor.getString(1);
-                userTagInfo = new UserTagInfo(tagName, tagID);
+                String registrationDate = cursor.getString(2);
+                userTagInfo = new UserTagInfo(tagName, tagID, registrationDate);
             }
             closeDatabaseConnection();
         }

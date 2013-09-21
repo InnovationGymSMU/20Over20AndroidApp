@@ -98,6 +98,11 @@ public class MainScreenActivity extends Activity {
         //Add it to our home screen list
         adapter.clear();
         adapter.addAll(allTags);
+        examineTagsForBatteryWarnings(allTags);
+
+    }
+
+    private void examineTagsForBatteryWarnings(List<UserTagInfo> allTags) {
 
     }
 
