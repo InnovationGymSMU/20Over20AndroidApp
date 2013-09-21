@@ -10,53 +10,35 @@ import android.widget.ImageView;
 
 public class SplashScreenActivity extends Activity {
 
-    int loopCounter = 1;
+    private int loopCounter = 1;
+    private static int SPLASH_TIME_OUT = 2000;
     ImageView appLogo;
     Drawable title1;
     Drawable title2;
     Drawable title3;
     Drawable title4;
-
+    AppLoadImageCycleTask task;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-        appLogo = (ImageView) findViewById(R.id.image_display);
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        appLogo = (ImageView) findViewById(R.id.splash_screen_image_view);
         title1 = getResources().getDrawable(R.drawable.title_1);
         title2 = getResources().getDrawable(R.drawable.title_2);
         title3 = getResources().getDrawable(R.drawable.title_3);
         title4 = getResources().getDrawable(R.drawable.title_4);
 
-        while(loopCounter <= 4)
-        {
-            switch (loopCounter)
-            {
-                case 1:
-                    appLogo.setImageDrawable(title1);
-                    break;
-                case 2:
-                    appLogo.setImageDrawable(title2);
-                    break;
-                case 3:
-                    appLogo.setImageDrawable(title3);
-                    break;
-                case 4:
-                    appLogo.setImageDrawable(title4);
-                    break;
-                default:
-                    appLogo.setImageDrawable(title4);
-                    break;
-            }
-            loopCounter++;
-            try {
-                Thread.sleep(200);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
-        goToMainScreen();
+        task = new AppLoadImageCycleTask(appLogo, this);
+        task.setAllDrawables(title1, title2, title3, title4);
+        task.execute(null);
     }
 
 
