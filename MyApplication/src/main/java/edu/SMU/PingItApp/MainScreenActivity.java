@@ -107,6 +107,7 @@ public class MainScreenActivity extends Activity {
 
         //Pull all the registered tags, and create new item rows for each one
         List<UserTagInfo> allTags = db.getAllTags();
+        Log.d(tag, "There were " + allTags.size() + " number of elements in the DB");
         if (allTags.size() == 0) {
             setNoItemsText();
         } else {
@@ -121,12 +122,14 @@ public class MainScreenActivity extends Activity {
     }
 
     public void setNoItemsText() {
+        Log.d(tag, "Setting the no items text");
         TextView titleText = (TextView)findViewById(R.id.main_screen_header_text_view);
         titleText.setGravity(Gravity.CENTER);
         titleText.setText(R.string.no_tags_text);
     }
 
     public void setHasItemsText() {
+        Log.d(tag, "Setting the has items text");
         TextView titleText = (TextView)findViewById(R.id.main_screen_header_text_view);
         titleText.setGravity(Gravity.LEFT);
         titleText.setText(R.string.main_screen_header_text);
