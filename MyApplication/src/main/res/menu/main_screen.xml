@@ -1,16 +1,34 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/add_new_item_action"
-        android:icon="@android:drawable/ic_menu_add"
-        android:title="@string/action_bar_add_item"
-        android:showAsAction="ifRoom"
-        android:onClick="addNewItem" />
-
-    <item
         android:id="@+id/toggle_flashlight"
         android:icon="@drawable/flashlight_white"
         android:title="@string/action_bar_add_item"
         android:showAsAction="ifRoom"
         android:onClick="toggleFlashlight" />
+    <item
+        android:id="@+id/add_new_item_action"
+        android:icon="@android:drawable/ic_menu_add"
+        android:title="@string/action_bar_add_item"
+        android:showAsAction="ifRoom"
+        android:onClick="addNewItem" />
+    <item
+        android:id="@+id/main_screen_help"
+        android:title="@string/action_bar_help"
+        android:showAsAction="never"
+        android:orderInCategory="1"
+        android:onClick="showOptions" />
+    <item
+        android:id="@+id/main_screen_about"
+        android:title="@string/action_bar_about"
+        android:showAsAction="never"
+        android:orderInCategory="2"
+        android:onClick="showOptions" />
+    <item
+        android:id="@+id/main_screen_buying"
+        android:title="@string/action_bar_buying"
+        android:showAsAction="never"
+        android:orderInCategory="3"
+        android:onClick="showOptions" />
+
 </menu>

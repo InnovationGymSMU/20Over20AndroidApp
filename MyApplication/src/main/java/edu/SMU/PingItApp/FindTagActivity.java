@@ -1,6 +1,7 @@
 package edu.SMU.PingItApp;
 
 import android.app.ActionBar;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
@@ -14,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.hardware.Camera;
+import android.media.AudioManager;
 
 public class FindTagActivity extends Activity {
 
@@ -26,11 +28,21 @@ public class FindTagActivity extends Activity {
     String personalizedButtonText;
     MenuItem flashlightButton;
     Camera camera;
+    AudioManager audio;
+    int maxVolume;
+    int currentVolume;
+    int ringerMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_tag);
+
+        //Override user's phone silent mode
+        audio = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+        currentVolume = audio.getStreamVolume(AudioManager.STREAM_MUSIC);
+        maxVolume = audio.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+        ringerMode = audio.getRingerMode();
 
         ActionBar actionBar = getActionBar();
         actionBar.setHomeButtonEnabled(true);
@@ -64,6 +76,8 @@ public class FindTagActivity extends Activity {
     {
         if(isPinging == false)
         {
+            audio.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolume, AudioManager.FLAG_PLAY_SOUND);
+
             isPinging = true;
             pingButton.setText(R.string.pinging_label_text);
 
@@ -89,6 +103,9 @@ public class FindTagActivity extends Activity {
 
         else if(isPinging == true)
         {
+            audio.setStreamVolume(AudioManager.STREAM_MUSIC, currentVolume, AudioManager.FLAG_PLAY_SOUND);
+            audio.setRingerMode(ringerMode);
+
             pingButton.setText(personalizedButtonText);
             mediaPlayer.stop();
             mediaPlayer.release();
