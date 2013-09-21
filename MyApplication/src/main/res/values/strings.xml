@@ -23,20 +23,6 @@
     <string name="item_name_label">What are you tagging?</string>
     <string name="item_id_label">Which tag are you using:</string>
 
-    <string-array name="item_id_values">
-        <item>Which tag are you using?</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-        <item>6</item>
-        <item>7</item>
-        <item>8</item>
-        <item>9</item>
-        <item>10</item>
-    </string-array>
-
     <string name="save_item_button">Save Item!</string>
     <string name="title_activity_temp">MainActivity</string>
     <string name="title_activity_find_tag">Find Tag</string>

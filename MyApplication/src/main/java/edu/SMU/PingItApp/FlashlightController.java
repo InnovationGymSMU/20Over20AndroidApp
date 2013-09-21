@@ -13,12 +13,10 @@ public class FlashlightController {
     static boolean flashlightOn = false;
     static Camera camera;
 
-    public static void toggleFlashlight(MenuItem flashlightButton, Context context){
+    public static void toggleFlashlight(MenuItem flashlightButton, Context context) {
 
-        if(context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH) == true)
-        {
-           if(flashlightOn == false)
-            {
+        if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH) == true) {
+            if (flashlightOn == false) {
                 flashlightButton.setIcon(R.drawable.flashlight_black);
                 camera = camera.open();
                 Camera.Parameters p = camera.getParameters();
@@ -26,17 +24,13 @@ public class FlashlightController {
                 camera.setParameters(p);
                 camera.startPreview();
                 flashlightOn = true;
-            }
-            else if(flashlightOn == true)
-            {
+            } else if (flashlightOn == true) {
                 flashlightButton.setIcon(R.drawable.flashlight_white);
                 camera.stopPreview();
                 camera.release();
                 flashlightOn = false;
             }
-        }
-        else
-        {
+        } else {
             Toast.makeText(context, "Device doesn't support flashlight.",
                     Toast.LENGTH_SHORT).show();
         }

@@ -39,7 +39,6 @@ public class MainScreenActivity extends Activity {
         setContentView(R.layout.activity_main_screen);
 
         ActionBar actionBar = getActionBar();
-        actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setIcon(R.drawable.white_logo);
 

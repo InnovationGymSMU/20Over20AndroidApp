@@ -16,7 +16,7 @@ public class WhereToBuyActivity extends Activity {
         ActionBar actionBar = getActionBar();
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setIcon(android.R.drawable.ic_menu_close_clear_cancel);
+        actionBar.setIcon(R.drawable.navigation_back);
     }
 
 

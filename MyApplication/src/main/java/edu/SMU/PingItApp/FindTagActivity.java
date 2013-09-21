@@ -13,25 +13,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.hardware.Camera;
 import android.media.AudioManager;
 
 public class FindTagActivity extends Activity {
 
-    boolean isPinging;
-    boolean flashlightOn = false;
-    Button pingButton;
-    MediaPlayer mediaPlayer;
-    ImageView pingImageView;
-    ImageSwitcherTask task;
-    String personalizedButtonText;
-    MenuItem flashlightButton;
-    Camera camera;
-    AudioManager audio;
-    int maxVolume;
-    int currentVolume;
-    int ringerMode;
+    private boolean isPinging;
+    private Button pingButton;
+    private MediaPlayer mediaPlayer;
+    private ImageView pingImageView;
+    private ImageSwitcherTask task;
+    private String personalizedButtonText;
+    private MenuItem flashlightButton;
+    private AudioManager audio;
+    private int maxVolume;
+    private int currentVolume;
+    private int ringerMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +43,7 @@ public class FindTagActivity extends Activity {
         ActionBar actionBar = getActionBar();
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setIcon(android.R.drawable.ic_menu_close_clear_cancel);
+        actionBar.setIcon(R.drawable.navigation_back);
 
         isPinging = false;
         pingButton = (Button) findViewById(R.id.pingButton);
@@ -72,10 +68,8 @@ public class FindTagActivity extends Activity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    public void playMusic(View view)
-    {
-        if(isPinging == false)
-        {
+    public void playMusic(View view) {
+        if (isPinging == false) {
             audio.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolume, AudioManager.FLAG_PLAY_SOUND);
 
             isPinging = true;
@@ -83,10 +77,9 @@ public class FindTagActivity extends Activity {
 
             pingButton.setText(R.string.stop_pinging_button_text);
 
-            task = new ImageSwitcherTask(this, pingImageView);
+            task = new ImageSwitcherTask(pingImageView);
             task.execute(null);
-            try
-            {
+            try {
                 AssetFileDescriptor descriptor = getAssets().openFd("2khz_10sec_.mp3");
                 mediaPlayer.setDataSource(descriptor.getFileDescriptor(), descriptor.getStartOffset(),
                         descriptor.getLength());
@@ -94,15 +87,10 @@ public class FindTagActivity extends Activity {
                 mediaPlayer.prepare();
                 mediaPlayer.setLooping(true);
                 mediaPlayer.start();
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
-
-        else if(isPinging == true)
-        {
+        } else if (isPinging == true) {
             audio.setStreamVolume(AudioManager.STREAM_MUSIC, currentVolume, AudioManager.FLAG_PLAY_SOUND);
             audio.setRingerMode(ringerMode);
 
@@ -126,7 +114,7 @@ public class FindTagActivity extends Activity {
         return true;
     }
 
-    public void toggleFlashlight(MenuItem item){
+    public void toggleFlashlight(MenuItem item) {
         FlashlightController.toggleFlashlight(flashlightButton, this);
     }
 }

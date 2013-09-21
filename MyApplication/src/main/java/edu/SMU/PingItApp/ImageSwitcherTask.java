@@ -1,6 +1,5 @@
 package edu.SMU.PingItApp;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.ImageView;
@@ -10,12 +9,10 @@ import android.widget.ImageView;
  */
 public class ImageSwitcherTask extends AsyncTask<Object, Object, Object> {
 
-    private Context context;
     private ImageView image;
     private int currentImage;
 
-    public ImageSwitcherTask(Context context, ImageView image) {
-        this.context = context;
+    public ImageSwitcherTask(ImageView image) {
         currentImage = 2;
         this.image = image;
     }

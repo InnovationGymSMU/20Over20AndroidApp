@@ -30,7 +30,8 @@
         android:layout_centerHorizontal="true"
         android:layout_margin="10dp"
         android:layout_above="@id/pingButton"
-        android:src="@drawable/ping_icon_1"/>
+        android:src="@drawable/ping_icon_1"
+        android:onClick="playMusic"/>
 
 
 </RelativeLayout>

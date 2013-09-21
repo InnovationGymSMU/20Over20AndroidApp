@@ -12,15 +12,12 @@ import android.widget.ImageView;
 
 public class AboutPageActivity extends Activity {
 
-    ImageView gymImageView;
-    ImageView hackathonImageView;
-    ImageView smuLyleImageView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_page);
 
-        gymImageView = (ImageView) findViewById(R.id.innovation_gym_image_view);
+        ImageView gymImageView = (ImageView) findViewById(R.id.innovation_gym_image_view);
         gymImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -33,7 +30,7 @@ public class AboutPageActivity extends Activity {
 
         });
 
-        hackathonImageView = (ImageView) findViewById(R.id.hackathon_image_view);
+        ImageView hackathonImageView = (ImageView) findViewById(R.id.hackathon_image_view);
         hackathonImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -46,7 +43,7 @@ public class AboutPageActivity extends Activity {
 
         });
 
-        smuLyleImageView = (ImageView) findViewById(R.id.smu_lyle_image_view);
+        ImageView smuLyleImageView = (ImageView) findViewById(R.id.smu_lyle_image_view);
         smuLyleImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,7 +59,7 @@ public class AboutPageActivity extends Activity {
         ActionBar actionBar = getActionBar();
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setIcon(android.R.drawable.ic_menu_close_clear_cancel);
+        actionBar.setIcon(R.drawable.navigation_back);
     }
 
 

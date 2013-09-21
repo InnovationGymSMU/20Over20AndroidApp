@@ -8,21 +8,13 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.Toast;
-import android.widget.TextView;
 
 import java.util.List;
 
@@ -43,15 +35,14 @@ public class NewItemRegistrationActivity extends Activity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_item_registration);
 
         ActionBar actionBar = getActionBar();
         actionBar.setHomeButtonEnabled(true);
-        actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setIcon(android.R.drawable.ic_menu_close_clear_cancel);
+        actionBar.setIcon(R.drawable.navigation_cancel);
+        actionBar.setTitle("    Register New Tag");
 
         database = new DeviceDatabase(this);
         tags = new TagAttributes(this);
@@ -59,8 +50,8 @@ public class NewItemRegistrationActivity extends Activity {
         spinnerEdited = true;
         IDOfItem = 0;
 
-        idContainerLayout = (LinearLayout)findViewById(R.id.registration_id_list_view);
-        List<Integer> allTags = tags.getAllAvailableTags();
+        idContainerLayout = (LinearLayout) findViewById(R.id.registration_id_list_view);
+        List<Integer> allTags = tags.getAllAvailableTagIds();
 
         for (Integer i : allTags) {
             addButtonToLayout(i);
@@ -70,17 +61,12 @@ public class NewItemRegistrationActivity extends Activity {
         itemNameInput = (EditText) findViewById(R.id.itemNameEdit);
         itemNameInput.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3)
-            {
-
-            }
+            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {}
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i2, int i3)
-            {
+            public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
                 String temp = itemNameInput.getText().toString();
-                if(temp.matches(""))
-                {
+                if (temp.matches("")) {
                     textEdited = false;
                     saveItemButton.setEnabled(false);
                     saveItemButton.setBackgroundResource(R.drawable.custom_inactive_button_design);
@@ -88,10 +74,8 @@ public class NewItemRegistrationActivity extends Activity {
             }
 
             @Override
-            public void afterTextChanged(Editable editable)
-            {
-                if(textEdited == true && IDOfItem != 0)
-                {
+            public void afterTextChanged(Editable editable) {
+                if (textEdited == true && IDOfItem != 0) {
                     saveItemButton.setEnabled(true);
                     saveItemButton.setBackgroundResource(R.drawable.custom_button_design);
                 }
@@ -109,12 +93,11 @@ public class NewItemRegistrationActivity extends Activity {
 
     private void addButtonToLayout(Integer i) {
         Button button = new Button(this);
-        button.setText("" + i.intValue());
+        button.setText(i.toString());
         button.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20.0f);
         button.setMaxWidth(10);
         button.setMaxHeight(10);
 
-        //button.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         button.setBackgroundResource(R.drawable.transparent_button_design);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,13 +132,11 @@ public class NewItemRegistrationActivity extends Activity {
         return true;
     }
 
-    public void saveNewItem(View view)
-    {
+    public void saveNewItem(View view) {
         EditText itemName = (EditText) findViewById(R.id.itemNameEdit);
         String nameOfItem = itemName.getText().toString();
-        Log.d("NewItemRegistrationActivity", nameOfItem);
-        //int IDOfItem = itemIdSpinner.getSelectedItemPosition();
-        Log.d("NewItemRegistrationActivity", "" + IDOfItem);
+        Log.d(tag, nameOfItem);
+        Log.d(tag, "" + IDOfItem);
 
         //Check to see if the tag is already registered
         //boolean isIdTaken = database.isTagAlreadyRegistered(IDOfItem);
