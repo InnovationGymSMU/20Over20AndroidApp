@@ -15,10 +15,6 @@
         android:background="@drawable/custom_button_design"
         android:textColor="@android:color/white" />
 
-
-
-
-
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -31,37 +27,44 @@
         android:layout_marginLeft="@dimen/registration_text_input_side_margin"
         android:layout_marginRight="@dimen/registration_text_input_side_margin"
         android:hint="@string/item_name_label"
-        android:gravity="center"/>
+        android:gravity="center" />
 
-    <TextView
-        android:id="@+id/registration_enter_id_text"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/item_id_label"
         android:layout_below="@id/itemNameEdit"
         android:layout_alignLeft="@id/itemNameEdit"
-        android:paddingTop="@dimen/registration_id_input_margin"
-        android:textAppearance="?android:attr/textAppearanceMedium"/>
-
-    <HorizontalScrollView
-        android:id="@+id/enter_registration_container"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/registration_enter_id_text"
-        android:layout_alignBottom="@id/registration_enter_id_text"
         android:layout_alignRight="@id/itemNameEdit"
-        android:requiresFadingEdge="horizontal">
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingTop="@dimen/registration_id_input_margin">
 
-        <LinearLayout
-            android:id="@+id/registration_id_list_view"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:orientation="horizontal"
-            android:fadingEdge="horizontal"
-            android:fadingEdgeLength="@dimen/registration_id_fade_length"
-            android:divider="@drawable/list_divide"/>
+        <TextView
+            android:id="@+id/registration_enter_id_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/item_id_label"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_marginRight="2dp"/>
+
+        <HorizontalScrollView
+            android:id="@+id/enter_registration_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:requiresFadingEdge="horizontal"
+            android:fadeScrollbars="false" >
+
+            <LinearLayout
+                android:id="@+id/registration_id_list_view"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="horizontal"
+                android:fadingEdge="horizontal"
+                android:fadingEdgeLength="@dimen/registration_id_fade_length"
+                android:divider="@drawable/list_divide" />
 
 
         </HorizontalScrollView>
+    </LinearLayout>
 
 </RelativeLayout>

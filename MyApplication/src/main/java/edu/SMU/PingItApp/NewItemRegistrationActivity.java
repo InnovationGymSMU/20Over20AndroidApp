@@ -17,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -34,6 +35,7 @@ public class NewItemRegistrationActivity extends Activity {
     private LinearLayout idContainerLayout;
     private TagAttributes tags;
     private Button saveItemButton;
+    private Button previousSelectedIDButton;
     private EditText itemNameInput;
     private boolean textEdited;
     private boolean spinnerEdited;
@@ -61,20 +63,7 @@ public class NewItemRegistrationActivity extends Activity {
         List<Integer> allTags = tags.getAllAvailableTags();
 
         for (Integer i : allTags) {
-            Button textView = new Button(this);
-            textView.setText("" + i.intValue());
-            textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20.0f);
-            textView.setPadding(25, 0, 25, 0);
-            textView.setBackgroundResource(R.drawable.id_selection_button_design);
-            textView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Button chosenView = (Button)view;
-                    Log.d(tag, "Selected item " + chosenView.getText());
-                    saveSelectedButtonID(Integer.parseInt(chosenView.getText().toString()));
-                }
-            });
-            idContainerLayout.addView(textView);
+            addButtonToLayout(i);
         }
 
 
@@ -115,6 +104,33 @@ public class NewItemRegistrationActivity extends Activity {
         saveItemButton = (Button) findViewById(R.id.saveItemButton);
         saveItemButton.setEnabled(false);
         saveItemButton.setBackgroundResource(R.drawable.custom_inactive_button_design);
+
+    }
+
+    private void addButtonToLayout(Integer i) {
+        Button button = new Button(this);
+        button.setText("" + i.intValue());
+        button.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20.0f);
+        button.setMaxWidth(10);
+        button.setMaxHeight(10);
+
+        //button.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        button.setBackgroundResource(R.drawable.transparent_button_design);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Button chosenView = (Button) view;
+                view.setBackgroundResource(R.drawable.custom_inactive_button_design);
+                if (previousSelectedIDButton != null) {
+                    previousSelectedIDButton.setBackgroundResource(R.drawable.transparent_button_design);
+                }
+                previousSelectedIDButton = chosenView;
+                Log.d(tag, "Selected item " + chosenView.getText());
+                saveSelectedButtonID(Integer.parseInt(chosenView.getText().toString()));
+            }
+        });
+        idContainerLayout.addView(button);
+
 
     }
 

@@ -10,5 +10,5 @@
     <dimen name="registration_text_input_top_margin">48dp</dimen>
     <dimen name="registration_text_input_side_margin">30dp</dimen>
     <dimen name="registration_id_input_margin">24dp</dimen>
-    <dimen name="registration_id_fade_length">100dp</dimen>
+    <dimen name="registration_id_fade_length">50dp</dimen>
 </resources>
