@@ -22,7 +22,6 @@
 
     <string name="item_name_label">What are you tagging?</string>
     <string name="item_id_label">Which tag are you using:</string>
-
     <string name="save_item_button">Save Item!</string>
     <string name="title_activity_temp">MainActivity</string>
     <string name="title_activity_find_tag">Find Tag</string>
@@ -39,7 +38,7 @@
         System was developed by 5 individuals for the 20-over-20 Hackathon competition in Dallas,
         Texas. The competition took place in September of 2013.</string>
     <string name="title_activity_where_to_buy">Where To Buy</string>
-
     <string name="our_retailers">Possibly Coming Soon to These Retailers:</string>
+    <string name="title_activity_spash_screen">SplashScreen</string>
 
 </resources>
