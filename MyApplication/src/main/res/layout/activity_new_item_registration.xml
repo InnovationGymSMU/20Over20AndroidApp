@@ -17,24 +17,51 @@
 
 
 
-    <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/itemIDSelector"
-        android:layout_below="@+id/itemNameEdit"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="12dp"
-        android:gravity="center"/>
+
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/itemNameEdit"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="@dimen/registration_text_input_margin"
-        android:layout_alignLeft="@id/itemIDSelector"
-        android:layout_alignRight="@id/itemIDSelector"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/registration_text_input_top_margin"
+        android:layout_marginLeft="@dimen/registration_text_input_side_margin"
+        android:layout_marginRight="@dimen/registration_text_input_side_margin"
         android:hint="@string/item_name_label"
         android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/registration_enter_id_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/item_id_label"
+        android:layout_below="@id/itemNameEdit"
+        android:layout_alignLeft="@id/itemNameEdit"
+        android:paddingTop="@dimen/registration_id_input_margin"
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+    <HorizontalScrollView
+        android:id="@+id/enter_registration_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/registration_enter_id_text"
+        android:layout_alignBottom="@id/registration_enter_id_text"
+        android:layout_alignRight="@id/itemNameEdit"
+        android:requiresFadingEdge="horizontal">
+
+        <LinearLayout
+            android:id="@+id/registration_id_list_view"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="horizontal"
+            android:fadingEdge="horizontal"
+            android:fadingEdgeLength="@dimen/registration_id_fade_length"
+            android:divider="@drawable/list_divide"/>
+
+
+        </HorizontalScrollView>
 
 </RelativeLayout>

@@ -26,7 +26,7 @@ public class MainScreenActivity extends Activity {
 
     private static final String tag = "MainScreenActivity";
     private static final int REGISTRATION_REQUEST_CODE = 1000;
-    private static final int DAYS_UNTIL_BATTERY_WARNING = 0;
+    private static final int DAYS_UNTIL_BATTERY_WARNING = 2;
     private DeviceDatabase db;
     private ArrayAdapter<UserTagInfo> adapter;
 
@@ -117,19 +117,20 @@ public class MainScreenActivity extends Activity {
                 long diffDays = differenceInMillis / (24 * 60 * 60 * 1000);
                 Log.d(tag, "Difference in days: " + diffDays);
                 if (diffDays >= DAYS_UNTIL_BATTERY_WARNING) {
-                    showBatteryWarningAlertDialog(tagInfo.getTagName(), diffDays);
+                    showBatteryWarningAlertDialog(tagInfo, diffDays);
                     break;
                 }
             }
         }
     }
 
-    private void showBatteryWarningAlertDialog(String tagName, long days) {
+    private void showBatteryWarningAlertDialog(UserTagInfo tagInfo, long days) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        String message = "Warning: The tag on " + tagName;
+        String message = "Warning: The tag on " + tagInfo.getTagName();
         message += " was registered " + days + " days ago. ";
         message += "Please consider replacing the tag";
         builder.setMessage(message);
+        final UserTagInfo finalTagInfo = tagInfo;
 
         builder.setNegativeButton(R.string.battery_warning_first_button, new DialogInterface.OnClickListener() {
             @Override
@@ -141,14 +142,14 @@ public class MainScreenActivity extends Activity {
         builder.setNeutralButton(R.string.battery_warning_second_button, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-
+                dialogInterface.cancel();
             }
         });
 
         builder.setPositiveButton(R.string.battery_warning_third_button, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-
+                db.updateTagRegistrationDate(finalTagInfo);
             }
         });
 

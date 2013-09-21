@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,19 +17,29 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.TextView;
 
+import java.util.List;
+
 public class NewItemRegistrationActivity extends Activity {
 
-    DeviceDatabase database;
+    private DeviceDatabase database;
     public static final int REGISTRATION_RESPONSE_SUCCESS = 1;
-    Spinner itemIdSpinner;
-    Button saveItemButton;
-    EditText itemNameInput;
-    boolean textEdited;
-    boolean spinnerEdited;
+    private static final String tag = "NewItemRegistrationActivity";
+    //Spinner itemIdSpinner;
+    private LinearLayout idContainerLayout;
+    private TagAttributes tags;
+    private Button saveItemButton;
+    private EditText itemNameInput;
+    private boolean textEdited;
+    private boolean spinnerEdited;
+    private int IDOfItem;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -41,33 +52,30 @@ public class NewItemRegistrationActivity extends Activity {
         actionBar.setIcon(android.R.drawable.ic_menu_close_clear_cancel);
 
         database = new DeviceDatabase(this);
+        tags = new TagAttributes(this);
         textEdited = false;
-        spinnerEdited = false;
+        spinnerEdited = true;
+        IDOfItem = 0;
 
-        itemIdSpinner = (Spinner) findViewById(R.id.itemIDSelector);
+        idContainerLayout = (LinearLayout)findViewById(R.id.registration_id_list_view);
+        List<Integer> allTags = tags.getAllAvailableTags();
 
-        String[] itemIdValues = getResources().getStringArray(R.array.item_id_values);
-
-
-
-        ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item, itemIdValues) {
-            @Override
-            public View getView(int position, View convertView,ViewGroup parent) {
-                return super.getView(position, convertView, parent);
-            }
-
-            @Override
-            public View getDropDownView(int position, View convertView,ViewGroup parent) {
-                View v = super.getDropDownView(position, convertView,parent);
-                ((TextView) v).setGravity(Gravity.CENTER);
-                return v;
-            }
-        };
-
-        //ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                //R.array.item_id_values, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        itemIdSpinner.setAdapter(adapter);
+        for (Integer i : allTags) {
+            Button textView = new Button(this);
+            textView.setText("" + i.intValue());
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20.0f);
+            textView.setPadding(25, 0, 25, 0);
+            textView.setBackgroundResource(R.drawable.id_selection_button_design);
+            textView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Button chosenView = (Button)view;
+                    Log.d(tag, "Selected item " + chosenView.getText());
+                    saveSelectedButtonID(Integer.parseInt(chosenView.getText().toString()));
+                }
+            });
+            idContainerLayout.addView(textView);
+        }
 
 
         itemNameInput = (EditText) findViewById(R.id.itemNameEdit);
@@ -86,52 +94,37 @@ public class NewItemRegistrationActivity extends Activity {
                 {
                     textEdited = false;
                     saveItemButton.setEnabled(false);
+                    saveItemButton.setBackgroundResource(R.drawable.custom_inactive_button_design);
                 }
             }
 
             @Override
             public void afterTextChanged(Editable editable)
             {
-                if(textEdited == true && spinnerEdited == true)
+                if(textEdited == true && IDOfItem != 0)
                 {
                     saveItemButton.setEnabled(true);
+                    saveItemButton.setBackgroundResource(R.drawable.custom_button_design);
                 }
                 textEdited = true;
             }
         }
         );
 
-        itemIdSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-        {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l)
-            {
-                if(textEdited == true)
-                {
-                    saveItemButton.setEnabled(true);
-                }
-                if(i != 0)
-                {
-                    spinnerEdited = true;
-                }
-                if(i == 0)
-                {
-                    saveItemButton.setEnabled(false);
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView)
-            {
-                spinnerEdited = false;
-            }
-        });
 
         saveItemButton = (Button) findViewById(R.id.saveItemButton);
         saveItemButton.setEnabled(false);
+        saveItemButton.setBackgroundResource(R.drawable.custom_inactive_button_design);
 
     }
 
+    private void saveSelectedButtonID(int tagID) {
+        IDOfItem = tagID;
+        if (textEdited == true) {
+            saveItemButton.setEnabled(true);
+            saveItemButton.setBackgroundResource(R.drawable.custom_button_design);
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -145,7 +138,7 @@ public class NewItemRegistrationActivity extends Activity {
         EditText itemName = (EditText) findViewById(R.id.itemNameEdit);
         String nameOfItem = itemName.getText().toString();
         Log.d("NewItemRegistrationActivity", nameOfItem);
-        int IDOfItem = itemIdSpinner.getSelectedItemPosition();
+        //int IDOfItem = itemIdSpinner.getSelectedItemPosition();
         Log.d("NewItemRegistrationActivity", "" + IDOfItem);
 
         //Check to see if the tag is already registered

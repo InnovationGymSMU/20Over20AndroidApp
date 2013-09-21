@@ -21,7 +21,7 @@
     <!-- strings for NewItemRegistrationActivity -->
 
     <string name="item_name_label">What are you tagging?</string>
-    <string name="item_id_label">Item ID...</string>
+    <string name="item_id_label">Which tag are you using:</string>
 
     <string-array name="item_id_values">
         <item>Which tag are you using?</item>

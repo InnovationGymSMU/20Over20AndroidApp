@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -158,6 +159,22 @@ public class DeviceDatabase {
         synchronized (helper){
             SQLiteDatabase db = openDatabaseConnection();
             db.delete(DEVICE_TABLE, TAG_ID + " = \"" + info.getTagID() + "\"", null );
+            closeDatabaseConnection();
+        }
+    }
+
+    public void updateTagRegistrationDate(UserTagInfo info) {
+        SimpleDateFormat format = new SimpleDateFormat("MM-dd-yyyy");
+        Date date = new Date();
+        String formattedDate = format.format(date);
+
+        Log.d(tag, "Updating the date to: " + formattedDate);
+        String query = "UPDATE " + DEVICE_TABLE + " SET " + REGISTRATION_DATE +
+                       " = \"" + formattedDate + "\" WHERE " + TAG_ID + " = \"" + info.getTagID() + "\";";
+
+        synchronized (helper) {
+            SQLiteDatabase db = openDatabaseConnection();
+            db.execSQL(query);
             closeDatabaseConnection();
         }
     }

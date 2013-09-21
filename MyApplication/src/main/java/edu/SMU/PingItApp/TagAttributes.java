@@ -13,9 +13,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 
 /**
@@ -63,16 +66,19 @@ public class TagAttributes {
         return Color.parseColor(colorKeys.get(tagID));
     }
 
-    public List<UserTagInfo> getAllAvailableTags() {
+    public List<Integer> getAllAvailableTags() {
 
-        List<UserTagInfo> tagInfoList = new ArrayList<UserTagInfo>();
-        tagInfoList.add(new UserTagInfo(context.getString(R.string.item_name_label), 0));
+        List<Integer> tagInfoList = new ArrayList<Integer>(colorKeys.keySet());
+        Collections.sort(tagInfoList);
+        return tagInfoList;
 
+        /*
         for (Map.Entry<Integer, String> item : colorKeys.entrySet()) {
             int colorNumber = item.getKey().intValue();
             tagInfoList.add(new UserTagInfo("" + colorNumber, colorNumber));
         }
 
         return tagInfoList;
+        */
     }
 }

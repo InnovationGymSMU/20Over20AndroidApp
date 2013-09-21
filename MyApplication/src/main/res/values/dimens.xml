@@ -7,5 +7,8 @@
     <dimen name="list_view_image_size">36dp</dimen>
     <dimen name="spinner_view_text_size">16dp</dimen>
     <dimen name="spinner_view_image_size">24dp</dimen>
-    <dimen name="registration_text_input_margin">48dp</dimen>
+    <dimen name="registration_text_input_top_margin">48dp</dimen>
+    <dimen name="registration_text_input_side_margin">30dp</dimen>
+    <dimen name="registration_id_input_margin">24dp</dimen>
+    <dimen name="registration_id_fade_length">100dp</dimen>
 </resources>
