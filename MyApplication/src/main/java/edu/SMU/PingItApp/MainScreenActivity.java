@@ -142,4 +142,8 @@ public class MainScreenActivity extends Activity {
     public void toggleFlashlight(MenuItem item) {
         FlashlightController.toggleFlashlight(flashlightButton);
     }
+
+    public void showOptions(MenuItem item) {
+
+    }
 }
