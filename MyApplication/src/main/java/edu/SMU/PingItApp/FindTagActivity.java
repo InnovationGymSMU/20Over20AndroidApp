@@ -127,6 +127,6 @@ public class FindTagActivity extends Activity {
     }
 
     public void toggleFlashlight(MenuItem item){
-        FlashlightController.toggleFlashlight(flashlightButton);
+        FlashlightController.toggleFlashlight(flashlightButton, this);
     }
 }
