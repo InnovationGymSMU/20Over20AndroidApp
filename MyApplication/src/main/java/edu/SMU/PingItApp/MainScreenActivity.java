@@ -1,5 +1,7 @@
 package edu.SMU.PingItApp;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
@@ -15,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -23,6 +26,7 @@ public class MainScreenActivity extends Activity {
 
     private static final String tag = "MainScreenActivity";
     private static final int REGISTRATION_REQUEST_CODE = 1000;
+    private static final int DAYS_UNTIL_BATTERY_WARNING = 0;
     private DeviceDatabase db;
     private ArrayAdapter<UserTagInfo> adapter;
 
@@ -103,7 +107,53 @@ public class MainScreenActivity extends Activity {
     }
 
     private void examineTagsForBatteryWarnings(List<UserTagInfo> allTags) {
+        for (UserTagInfo tagInfo : allTags) {
+            Date registrationDate = tagInfo.getRegistrationDate();
+            if (registrationDate != null) {
 
+                Date currentDate = new Date();
+                long differenceInMillis = currentDate.getTime() - registrationDate.getTime();
+                Log.d(tag, "Difference in milliseconds: " + differenceInMillis);
+                long diffDays = differenceInMillis / (24 * 60 * 60 * 1000);
+                Log.d(tag, "Difference in days: " + diffDays);
+                if (diffDays >= DAYS_UNTIL_BATTERY_WARNING) {
+                    showBatteryWarningAlertDialog(tagInfo.getTagName(), diffDays);
+                    break;
+                }
+            }
+        }
+    }
+
+    private void showBatteryWarningAlertDialog(String tagName, long days) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        String message = "Warning: The tag on " + tagName;
+        message += " was registered " + days + " days ago. ";
+        message += "Please consider replacing the tag";
+        builder.setMessage(message);
+
+        builder.setNegativeButton(R.string.battery_warning_first_button, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int id) {
+                dialogInterface.cancel();
+            }
+        });
+
+        builder.setNeutralButton(R.string.battery_warning_second_button, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+
+        builder.setPositiveButton(R.string.battery_warning_third_button, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
     public void onItemSelect(UserTagInfo row) {
@@ -135,8 +185,7 @@ public class MainScreenActivity extends Activity {
 
         int menuItemIndex = item.getItemId();
 
-        if(menuItemIndex == 0)
-        {
+        if(menuItemIndex == 0) {
             UserTagInfo tagInfo = adapter.getItem(info.position);
             db.deleteTag(tagInfo);
             updateListView();

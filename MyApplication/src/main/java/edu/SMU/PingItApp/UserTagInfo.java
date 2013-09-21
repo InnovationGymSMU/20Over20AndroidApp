@@ -31,7 +31,7 @@ public class UserTagInfo {
     public UserTagInfo(String tagName, int tagID, String registrationDate) {
         this.tagName = tagName;
         this.tagID = tagID;
-        SimpleDateFormat format = new SimpleDateFormat("MM/dd/YYYY");
+        SimpleDateFormat format = new SimpleDateFormat("MM-dd-yyyy");
         try {
             this.registrationDate = format.parse(registrationDate);
         } catch (ParseException e) {

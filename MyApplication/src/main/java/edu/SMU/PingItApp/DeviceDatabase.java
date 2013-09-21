@@ -21,7 +21,7 @@ public class DeviceDatabase {
     private static final String tag = "DeviceDatabase";
 
     private static final String DATABASE_NAME = "Devices";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 5;
 
     private static final String DEVICE_TABLE = "DeviceTable";
     private static final String TAG_ID = "TagID";
@@ -31,7 +31,7 @@ public class DeviceDatabase {
     private static final String CREATE_DEVICE_TABLE =
             "CREATE TABLE " + DEVICE_TABLE + "(" +
                     TAG_ID + " TEXT PRIMARY KEY, " +
-                    TAG_NAME + " TEXT " +
+                    TAG_NAME + " TEXT, " +
                     REGISTRATION_DATE + " TEXT);";
 
     private static DatabaseHelper helper = null;
