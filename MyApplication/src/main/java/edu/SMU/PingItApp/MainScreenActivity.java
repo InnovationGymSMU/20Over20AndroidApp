@@ -8,14 +8,18 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Date;
@@ -103,12 +107,29 @@ public class MainScreenActivity extends Activity {
 
         //Pull all the registered tags, and create new item rows for each one
         List<UserTagInfo> allTags = db.getAllTags();
+        if (allTags.size() == 0) {
+            setNoItemsText();
+        } else {
+            setHasItemsText();
+        }
 
         //Add it to our home screen list
         adapter.clear();
         adapter.addAll(allTags);
         examineTagsForBatteryWarnings(allTags);
 
+    }
+
+    public void setNoItemsText() {
+        TextView titleText = (TextView)findViewById(R.id.main_screen_header_text_view);
+        titleText.setGravity(Gravity.CENTER);
+        titleText.setText(R.string.no_tags_text);
+    }
+
+    public void setHasItemsText() {
+        TextView titleText = (TextView)findViewById(R.id.main_screen_header_text_view);
+        titleText.setGravity(Gravity.LEFT);
+        titleText.setText(R.string.main_screen_header_text);
     }
 
     private void examineTagsForBatteryWarnings(List<UserTagInfo> allTags) {

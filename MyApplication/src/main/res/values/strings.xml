@@ -17,7 +17,7 @@
     <string name="battery_warning_first_button">Ignore</string>
     <string name="battery_warning_second_button">Where can\nI buy more?</string>
     <string name="battery_warning_third_button">I\'ve replaced\nit already</string>
-
+    <string name="no_tags_text">Click the \'+\' button above to register a new tag</string>
     <!-- strings for NewItemRegistrationActivity -->
 
     <string name="item_name_label">What are you tagging?</string>

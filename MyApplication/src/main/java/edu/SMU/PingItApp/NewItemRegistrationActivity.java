@@ -1,6 +1,7 @@
 package edu.SMU.PingItApp;
 
 import android.app.ActionBar;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
@@ -8,6 +9,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,7 +32,6 @@ public class NewItemRegistrationActivity extends Activity {
     private Button previousSelectedIDButton;
     private EditText itemNameInput;
     private boolean textEdited;
-    private boolean spinnerEdited;
     private int IDOfItem;
 
 
@@ -41,13 +42,18 @@ public class NewItemRegistrationActivity extends Activity {
 
         ActionBar actionBar = getActionBar();
         actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setIcon(R.drawable.navigation_cancel);
-        actionBar.setTitle("    Register New Tag");
+        LayoutInflater inflator = (LayoutInflater) this
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View v = inflator.inflate(R.layout.registration_page_title, null);
+        actionBar.setCustomView(v);
+        //actionBar.setTitle("                Register New Tag");
 
         database = new DeviceDatabase(this);
         tags = new TagAttributes(this);
         textEdited = false;
-        spinnerEdited = true;
         IDOfItem = 0;
 
         idContainerLayout = (LinearLayout) findViewById(R.id.registration_id_list_view);
