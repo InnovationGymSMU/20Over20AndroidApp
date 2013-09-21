@@ -87,7 +87,7 @@ public class FindTagActivity extends Activity {
             task.execute(null);
             try
             {
-                AssetFileDescriptor descriptor = getAssets().openFd("sax.mp3");
+                AssetFileDescriptor descriptor = getAssets().openFd("2khz_10sec_.mp3");
                 mediaPlayer.setDataSource(descriptor.getFileDescriptor(), descriptor.getStartOffset(),
                         descriptor.getLength());
                 descriptor.close();

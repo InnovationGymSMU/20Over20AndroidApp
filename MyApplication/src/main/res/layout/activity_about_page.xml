@@ -22,28 +22,52 @@
         android:id="@+id/about_description"
         android:text="@string/about_description"
         android:layout_below="@id/about_title"
-        android:layout_marginTop="20dp"/>'
+        android:layout_marginTop="10dp"/>'
 
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="100dp"
+        android:layout_height="75dp"
         android:id="@+id/ping_it_image_view"
         android:src="@drawable/ping_logo"
         android:layout_centerHorizontal="true"
-        android:layout_margin="15dp"
+        android:layout_margin="5dp"
         android:layout_below="@id/about_description"
         android:scaleType="fitCenter"/>
 
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="100dp"
+        android:layout_height="75dp"
         android:id="@+id/innovation_gym_image_view"
         android:src="@drawable/innovation_gym_logo"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:layout_margin="15dp"
+        android:layout_margin="5dp"
         android:layout_below="@id/ping_it_image_view"
         android:scaleType="fitCenter"/>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="4"
+        android:layout_below="@id/innovation_gym_image_view">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/hackathon_image_view"
+            android:src="@drawable/hackathon_logo"
+            android:layout_margin="5dp"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/smu_lyle_image_view"
+            android:src="@drawable/smu_lyle"
+            android:layout_margin="5dp"
+            android:layout_weight="3"/>
+
+    </LinearLayout>
 
 
 </RelativeLayout>
