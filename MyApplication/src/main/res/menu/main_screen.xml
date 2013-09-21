@@ -13,22 +13,16 @@
         android:showAsAction="ifRoom"
         android:onClick="addNewItem" />
     <item
-        android:id="@+id/main_screen_help"
-        android:title="@string/action_bar_help"
-        android:showAsAction="never"
-        android:orderInCategory="1"
-        android:onClick="showOptions" />
-    <item
         android:id="@+id/main_screen_about"
         android:title="@string/action_bar_about"
         android:showAsAction="never"
         android:orderInCategory="2"
-        android:onClick="showOptions" />
+        android:onClick="goToAboutPage" />
     <item
         android:id="@+id/main_screen_buying"
         android:title="@string/action_bar_buying"
         android:showAsAction="never"
         android:orderInCategory="3"
-        android:onClick="showOptions" />
+        android:onClick="goToBuyingPage" />
 
 </menu>

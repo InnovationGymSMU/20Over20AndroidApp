@@ -4,13 +4,12 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
-    <permission android:name="android.permission.FLASHLIGHT"
+    <permission
+        android:name="android.permission.FLASHLIGHT"
         android:permissionGroup="android.permission-group.HARDWARE_CONTROLS"
         android:protectionLevel="normal" />
 
-    <uses-permission
-        android:name="android.permission.CAMERA" />
-
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -33,7 +32,7 @@
         <activity
             android:name="edu.SMU.PingItApp.NewItemRegistrationActivity"
             android:label="@string/title_activity_new_item_registration"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustResize" >
         </activity>
         <activity
             android:name="edu.SMU.PingItApp.temp"
@@ -42,6 +41,14 @@
         <activity
             android:name="edu.SMU.PingItApp.FindTagActivity"
             android:label="@string/title_activity_find_tag" >
+        </activity>
+        <activity
+            android:name="edu.SMU.PingItApp.AboutPageActivity"
+            android:label="@string/title_activity_about_page" >
+        </activity>
+        <activity
+            android:name="edu.SMU.PingItApp.WhereToBuyActivity"
+            android:label="@string/title_activity_where_to_buy" >
         </activity>
     </application>
 

@@ -195,10 +195,16 @@ public class MainScreenActivity extends Activity {
     }
 
     public void toggleFlashlight(MenuItem item) {
-        FlashlightController.toggleFlashlight(flashlightButton);
+        FlashlightController.toggleFlashlight(flashlightButton, this);
     }
 
-    public void showOptions(MenuItem item) {
+    public void goToAboutPage(MenuItem item) {
+        Intent intent = new Intent(this, AboutPageActivity.class);
+        startActivity(intent);
+    }
 
+    public void goToBuyingPage(MenuItem item) {
+        Intent intent = new Intent(this, WhereToBuyActivity.class);
+        startActivity(intent);
     }
 }

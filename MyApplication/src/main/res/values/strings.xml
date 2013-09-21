@@ -38,11 +38,22 @@
     </string-array>
 
     <string name="save_item_button">Save Item!</string>
-
     <string name="title_activity_temp">MainActivity</string>
     <string name="title_activity_find_tag">Find Tag</string>
-
     <string name="action_bar_help">Help</string>
     <string name="action_bar_about">About</string>
     <string name="action_bar_buying">Where to Buy</string>
+    <string name="title_activity_about_page">About Us</string>
+    <string name="about_title">About the PingIt Developers</string>
+    <string name="about_description">\tThe Innovation Gym is a 24-hour, student-centered makerspace
+        in the Bobby B. Lyle school of Engineering at SMU. It is a place for SMU students to hone
+        their engineering and creative skills by working on real world design challenges. Companies,
+        research firms, and non-profits all provide real challenges for the students to develop
+        innovative solutions, often under intensive time and/or financial constraints.\n\tThe PingIt
+        App was developed by 5 individuals for the 20-over-20 Hackathon competition in September of
+    2013.</string>
+    <string name="title_activity_where_to_buy">Where To Buy</string>
+
+    <string name="our_retailers">Coming Soon to These Retailers:</string>
+
 </resources>
