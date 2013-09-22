@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,6 +21,20 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.StatusLine;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
+import java.net.URLEncoder;
 
 /**
  * Activity which displays a login screen to the user, offering registration as
@@ -46,6 +61,8 @@ public class InitialRegisterActivity extends Activity {
     private String email;
     private boolean usernameFilled;
     private boolean emailFilled;
+
+    private URL url;
 
     // UI references.
     private EditText usernameView;
@@ -134,7 +151,26 @@ public class InitialRegisterActivity extends Activity {
         return true;
     }
 
-    public void goToMainPage(View view) {
+    public void goToMainPage(View view) throws IOException {
+        String username = usernameView.getText().toString();
+        String email = emailView.getText().toString();
+        username = URLEncoder.encode(username, "UTF-8");
+        email = URLEncoder.encode(email, "UTF-8");
+        HttpClient client = new DefaultHttpClient();
+        HttpResponse response = client.execute(new HttpGet("http://pingit.smugym.com/registration.php?action=register&name=" +
+                username + "&email=" + email));
+        StatusLine statusLine = response.getStatusLine();
+        if(statusLine.getStatusCode() == HttpStatus.SC_OK)
+        {
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            response.getEntity().writeTo(out);
+            out.close();
+            String responseString = out.toString();
+            Log.d("InitialRegisterActivity", responseString);
+        }
+        else
+            response.getEntity().getContent().close();
+
         Intent intent = new Intent(this, MainScreenActivity.class);
         startActivity(intent);
     }
