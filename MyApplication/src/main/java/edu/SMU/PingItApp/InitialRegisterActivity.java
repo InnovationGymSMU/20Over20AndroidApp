@@ -206,8 +206,6 @@ public class InitialRegisterActivity extends Activity {
             if (result != null && result.length == 2) {
                 if ("Found".equals(result[1])) {
                     Toast.makeText(activity, "You are already in our system!", Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(activity, "Welcome to PingIt!", Toast.LENGTH_LONG).show();
                 }
                 SharedPreferences preferences = activity.getSharedPreferences(SplashScreenActivity.PREFS_NAME, 0);
                 SharedPreferences.Editor editor = preferences.edit();
