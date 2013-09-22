@@ -13,6 +13,12 @@
         android:showAsAction="ifRoom"
         android:onClick="addNewItem" />
     <item
+        android:id="@+id/main_screen_found_tag"
+        android:title="Found a tag?"
+        android:showAsAction="never"
+        android:orderInCategory="1"
+        android:onClick="goToFoundTagPage" />
+    <item
         android:id="@+id/main_screen_about"
         android:title="@string/action_bar_about"
         android:showAsAction="never"

@@ -1,6 +1,7 @@
 package edu.SMU.PingItApp;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.app.Activity;
@@ -18,6 +19,7 @@ public class SplashScreenActivity extends Activity {
     Drawable title3;
     Drawable title4;
     AppLoadImageCycleTask task;
+    public static final String PREFS_NAME = "PingItPreferences";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,9 +52,24 @@ public class SplashScreenActivity extends Activity {
     }
 
     public void goToMainScreen() {
-        Intent intent = new Intent(this, MainScreenActivity.class);
-        startActivity(intent);
 
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        boolean firstLaunch = settings.getBoolean("firstLaunch", true);
+        if(firstLaunch == true)
+        {
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putBoolean("firstLaunch", false);
+            editor.commit();
+
+
+            Intent intent = new Intent(this, InitialRegisterActivity.class);
+            startActivity(intent);
+        }
+        else
+        {
+            Intent intent = new Intent(this, MainScreenActivity.class);
+            startActivity(intent);
+        }
         finish();
     }
 }

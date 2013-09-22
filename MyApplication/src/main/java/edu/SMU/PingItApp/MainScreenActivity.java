@@ -227,6 +227,11 @@ public class MainScreenActivity extends Activity {
         FlashlightController.toggleFlashlight(flashlightButton, this);
     }
 
+    public void goToFoundTagPage(MenuItem item) {
+        Intent intent = new Intent(this, FoundTagActivity.class);
+        startActivity(intent);
+    }
+
     public void goToAboutPage(MenuItem item) {
         Intent intent = new Intent(this, AboutPageActivity.class);
         startActivity(intent);

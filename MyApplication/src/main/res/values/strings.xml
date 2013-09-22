@@ -40,5 +40,8 @@
     <string name="title_activity_where_to_buy">Where To Buy</string>
     <string name="our_retailers">Possibly Coming Soon to These Retailers:</string>
     <string name="title_activity_spash_screen">SplashScreen</string>
+    <string name="welcome_label">Welcome to PingIt!</string>
+    <string name="registration_label">Enter your info to register your tags on our global database.</string>
+    <string name="title_activity_found_tag">Found a Tag?</string>
 
 </resources>
