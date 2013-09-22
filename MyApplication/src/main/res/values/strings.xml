@@ -43,5 +43,6 @@
     <string name="welcome_label">Welcome to PingIt!</string>
     <string name="registration_label">Enter your name and email to register your tags with PingIt!</string>
     <string name="title_activity_found_tag">Found a Tag?</string>
+    <string name="tag_sn_input">What is the tag\'s serial number?</string>
 
 </resources>

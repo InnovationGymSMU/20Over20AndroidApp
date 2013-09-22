@@ -3,6 +3,9 @@ package edu.SMU.PingItApp;
 import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.opengl.Visibility;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.text.Editable;
@@ -18,6 +21,15 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.StatusLine;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 public class NewItemRegistrationActivity extends Activity {
@@ -33,6 +45,7 @@ public class NewItemRegistrationActivity extends Activity {
     private EditText itemNameInput;
     private boolean textEdited;
     private int IDOfItem;
+    private int guid;
 
 
     @Override
@@ -95,6 +108,11 @@ public class NewItemRegistrationActivity extends Activity {
         saveItemButton.setEnabled(false);
         saveItemButton.setBackgroundResource(R.drawable.custom_inactive_button_design);
 
+        SharedPreferences settings = getSharedPreferences(SplashScreenActivity.PREFS_NAME, 0);
+        guid = settings.getInt("GlobalUserID", -1);
+        if (guid == -1) {
+            ((EditText)findViewById(R.id.registration_sn_input)).setVisibility(View.INVISIBLE);
+        }
     }
 
     private void addButtonToLayout(Integer i) {
@@ -153,8 +171,19 @@ public class NewItemRegistrationActivity extends Activity {
             //If not, then add it to the database
             UserTagInfo userTagInfo = new UserTagInfo(nameOfItem, IDOfItem);
             database.addTag(userTagInfo);
+            if (guid != -1) {
+                sendRegistrationToServer(IDOfItem, guid);
+            }
             completeSuccessfulRegistration(userTagInfo);
         }
+    }
+
+    public void sendRegistrationToServer(int id, int guid) {
+        String serialNumberText = ((EditText)findViewById(R.id.registration_sn_input)).getText().toString();
+        int sn = Integer.parseInt(serialNumberText);
+
+        new RegisterTagTask(id, sn, guid, this).execute(null);
+
     }
 
     public void completeSuccessfulRegistration(UserTagInfo userTagInfo) {
@@ -171,5 +200,59 @@ public class NewItemRegistrationActivity extends Activity {
         finish();
         return true;
     }
+
+    private class RegisterTagTask extends AsyncTask<Object, Object, String> {
+
+        private int id;
+        private int sn;
+        private int guid;
+        private Context context;
+
+        public RegisterTagTask(int id, int sn, int guid, Context context) {
+            this.id = id;
+            this.sn = sn;
+            this.guid = guid;
+            this.context = context;
+        }
+        @Override
+        public String doInBackground(Object... params) {
+
+            HttpClient client = new DefaultHttpClient();
+            try {
+                HttpResponse response = client.execute(new HttpGet("http://pingit.smugym.com/registration.php?action=register&tagsn=" +
+                        sn + "&tagnumber=" + id + "&guid=" + guid));
+                StatusLine statusLine = response.getStatusLine();
+                Log.d(tag, "Status was: " + statusLine.getStatusCode());
+                if(statusLine.getStatusCode() == HttpStatus.SC_OK)
+                {
+                    ByteArrayOutputStream out = new ByteArrayOutputStream();
+                    response.getEntity().writeTo(out);
+                    out.close();
+                    String responseString = out.toString();
+                    Log.d(tag, responseString);
+
+                    return responseString;
+                }
+                else {
+                    response.getEntity().getContent().close();
+                }
+            } catch (IOException e ) {
+                Log.e(tag, "Could not make the request", e);
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            if ("Success".equals(result.trim())) {
+                Toast.makeText(context, "Registered in the global database!", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(context, "Could not register to the global database", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+
 
 }
