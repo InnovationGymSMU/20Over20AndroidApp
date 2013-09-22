@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/registration_label"
-                android:textSize="5pt"
+                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:layout_marginTop="5dp"/>
 
             <EditText
@@ -56,7 +56,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:hint="Username"
+                android:hint="Name"
                 android:layout_marginTop="25dp"/>
 
             <EditText
@@ -68,30 +68,37 @@
                 android:gravity="center"
                 android:hint="@string/prompt_email" />
 
-            <Button android:id="@+id/sign_in_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Register!"
-                android:layout_gravity="center"
-                android:paddingLeft="32dp"
-                android:paddingRight="32dp"
-                android:background="@drawable/custom_button_design"
-                android:textColor="@android:color/white"
-                android:onClick="goToMainPage"/>
-            <Button
+            <LinearLayout
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:id="@+id/skip_button"
-                android:layout_marginTop="16dp"
-                android:text="Skip"
+                android:orientation="horizontal"
                 android:layout_gravity="center"
-                android:paddingLeft="32dp"
-                android:paddingRight="32dp"
-                android:background="@drawable/custom_button_design"
-                android:textColor="@android:color/white"
-                android:onClick="goToMainPage" />
+                >
 
+                <Button
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:id="@+id/skip_button"
+                    android:layout_marginTop="16dp"
+                    android:text="Skip"
+                    android:paddingLeft="32dp"
+                    android:paddingRight="32dp"
+                    android:background="@drawable/custom_button_design"
+                    android:textColor="@android:color/white"
+                    android:onClick="goToMainPage" />
+
+                <Button android:id="@+id/sign_in_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Register!"
+                    android:paddingLeft="32dp"
+                    android:paddingRight="32dp"
+                    android:background="@drawable/custom_button_design"
+                    android:textColor="@android:color/white"
+                    android:onClick="goToMainPage"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 

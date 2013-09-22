@@ -6,6 +6,7 @@ import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -152,27 +154,67 @@ public class InitialRegisterActivity extends Activity {
     }
 
     public void goToMainPage(View view) throws IOException {
-        String username = usernameView.getText().toString();
-        String email = emailView.getText().toString();
-        username = URLEncoder.encode(username, "UTF-8");
-        email = URLEncoder.encode(email, "UTF-8");
-        HttpClient client = new DefaultHttpClient();
-        HttpResponse response = client.execute(new HttpGet("http://pingit.smugym.com/registration.php?action=register&name=" +
-                username + "&email=" + email));
-        StatusLine statusLine = response.getStatusLine();
-        if(statusLine.getStatusCode() == HttpStatus.SC_OK)
-        {
-            ByteArrayOutputStream out = new ByteArrayOutputStream();
-            response.getEntity().writeTo(out);
-            out.close();
-            String responseString = out.toString();
-            Log.d("InitialRegisterActivity", responseString);
+        if (view.getId() == R.id.skip_button) {
+            Intent intent = new Intent(this, MainScreenActivity.class);
+            startActivity(intent);
+        } else {
+            String username = usernameView.getText().toString();
+            String email = emailView.getText().toString();
+            username = URLEncoder.encode(username, "UTF-8");
+            email = URLEncoder.encode(email, "UTF-8");
+            new RegistrationThread(this).execute(username, email);
         }
-        else
-            response.getEntity().getContent().close();
-
-        Intent intent = new Intent(this, MainScreenActivity.class);
-        startActivity(intent);
     }
 
+    private class RegistrationThread extends AsyncTask<String, Object, String[]> {
+        private static final String tag = "RegistrationThread";
+        private InitialRegisterActivity activity;
+        public RegistrationThread(InitialRegisterActivity activity) {
+            this.activity = activity;
+        }
+
+        @Override
+        protected String[] doInBackground(String... params) {
+            String name = params[0];
+            String email = params[1];
+            HttpClient client = new DefaultHttpClient();
+            try {
+                HttpResponse response = client.execute(new HttpGet("http://pingit.smugym.com/registration.php?action=register&name=" +
+                        name + "&email=" + email));
+                StatusLine statusLine = response.getStatusLine();
+                if(statusLine.getStatusCode() == HttpStatus.SC_OK)
+                {
+                    ByteArrayOutputStream out = new ByteArrayOutputStream();
+                    response.getEntity().writeTo(out);
+                    out.close();
+                    String responseString = out.toString();
+                    Log.d(tag, responseString);
+
+                    return responseString.split(" ");
+                }
+                else {
+                    response.getEntity().getContent().close();
+                }
+            } catch (IOException e ) {
+                Log.e(tag, "Could not make the request", e);
+            }
+            return null;
+        }
+
+
+        protected void onPostExecute(String[] result) {
+            if (result != null && result.length == 2) {
+                if ("Found".equals(result[1])) {
+                    Toast.makeText(activity, "You are already in our system!", Toast.LENGTH_LONG).show();
+                }
+                SharedPreferences preferences = activity.getSharedPreferences(SplashScreenActivity.PREFS_NAME, 0);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putInt("GlobalUserID", Integer.parseInt(result[0].trim()));
+                editor.commit();
+                Log.d(tag, "New global user ID: " + preferences.getInt("GlobalUserID", -1));
+            }
+            Intent intent = new Intent(activity, MainScreenActivity.class);
+            startActivity(intent);
+        }
+    }
 }
