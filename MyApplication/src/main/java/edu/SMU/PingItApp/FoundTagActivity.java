@@ -81,6 +81,6 @@ public class FoundTagActivity extends Activity {
         startActivity(intent);
         finish();
 
-        Toast.makeText(this, "Thank you for reporting. You are a kind soul!", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Thank you for reporting. You kind soul!", Toast.LENGTH_LONG).show();
     }
 }

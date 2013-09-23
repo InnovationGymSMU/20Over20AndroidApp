@@ -85,7 +85,6 @@ public class FindTagActivity extends Activity {
                         descriptor.getLength());
                 descriptor.close();
                 mediaPlayer.prepare();
-                mediaPlayer.setLooping(true);
                 mediaPlayer.start();
             } catch (Exception e) {
                 e.printStackTrace();
