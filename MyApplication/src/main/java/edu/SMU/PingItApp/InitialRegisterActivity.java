@@ -43,28 +43,11 @@ import java.net.URLEncoder;
  * well.
  */
 public class InitialRegisterActivity extends Activity {
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello",
-            "bar@example.com:world"
-    };
-
-    /**
-     * The default email to populate the email field with.
-     */
-    public static final String EXTRA_EMAIL = "com.example.android.authenticatordemo.extra.EMAIL";
 
 
     // Values for email and password at the time of the login attempt.
-    private String username;
-    private String email;
     private boolean usernameFilled;
     private boolean emailFilled;
-
-    private URL url;
 
     // UI references.
     private EditText usernameView;
@@ -81,14 +64,12 @@ public class InitialRegisterActivity extends Activity {
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setIcon(R.drawable.white_logo);
 
-        usernameFilled = false;
-        emailFilled = false;
-
         registerButton = (Button) findViewById(R.id.sign_in_button);
         registerButton.setEnabled(false);
         registerButton.setBackgroundResource(R.drawable.custom_inactive_button_design);
 
         usernameView = (EditText) findViewById(R.id.username);
+
         usernameView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
@@ -97,54 +78,41 @@ public class InitialRegisterActivity extends Activity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-                String temp = usernameView.getText().toString();
-                if (temp.matches("")) {
-                    usernameFilled = false;
-                    registerButton.setEnabled(false);
-                    registerButton.setBackgroundResource(R.drawable.custom_inactive_button_design);
-                }
+
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if(usernameFilled == true && emailFilled == true)
-                {
-                    registerButton.setEnabled(true);
-                    registerButton.setBackgroundResource(R.drawable.custom_button_design);
-                }
-                usernameFilled = true;
+                usernameFilled = (editable.length() != 0);
+                checkIfFieldsAreFilled();
             }
         });
 
         emailView = (EditText) findViewById(R.id.email);
         emailView.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-
-            }
+            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {}
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-                String temp = emailView.getText().toString();
-                if (temp.matches("")) {
-                    emailFilled = false;
-                    registerButton.setEnabled(false);
-                    registerButton.setBackgroundResource(R.drawable.custom_inactive_button_design);
-                }
-            }
+            public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {}
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if(usernameFilled == true && emailFilled == true)
-                {
-                    registerButton.setEnabled(true);
-                    registerButton.setBackgroundResource(R.drawable.custom_button_design);
-                }
-                emailFilled = true;
+                emailFilled = (editable.length() != 0);
+                checkIfFieldsAreFilled();
             }
         });
     }
 
+    private void checkIfFieldsAreFilled() {
+        if (usernameFilled && emailFilled) {
+            registerButton.setEnabled(true);
+            registerButton.setBackgroundResource(R.drawable.custom_button_design);
+        } else {
+            registerButton.setEnabled(false);
+            registerButton.setBackgroundResource(R.drawable.custom_inactive_button_design);
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

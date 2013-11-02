@@ -4,37 +4,34 @@ import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.widget.ImageView;
 
+import java.util.List;
+
 /**
  * Created by charlie on 9/21/13.
  */
 public class AppLoadImageCycleTask extends AsyncTask <Object, Object, Object> {
 
     private int loopCounter;
-    ImageView image;
-    Drawable title1;
-    Drawable title2;
-    Drawable title3;
-    Drawable title4;
-    SplashScreenActivity activity;
+    private ImageView image;
+    private List<Drawable> images;
+    private SplashScreenActivity activity;
 
     public AppLoadImageCycleTask(ImageView view, SplashScreenActivity activity){
         this.image = view;
         this.activity = activity;
-        loopCounter = 1;
+        images = null;
+        loopCounter = 0;
     }
 
-    public void setAllDrawables(Drawable title1, Drawable title2, Drawable title3, Drawable title4)
+    public void setAllDrawables(List<Drawable> allDrawables)
     {
-        this.title1 = title1;
-        this.title2 = title2;
-        this.title3 = title3;
-        this.title4 = title4;
+        images = allDrawables;
     }
     @Override
     protected Object doInBackground(Object... params) {
 
         try {
-            while(loopCounter <= 4) {
+            while(loopCounter <= images.size()) {
                 Thread.sleep(500);
                 publishProgress(null);
             }
@@ -48,24 +45,10 @@ public class AppLoadImageCycleTask extends AsyncTask <Object, Object, Object> {
     @Override
     protected void onProgressUpdate(Object... progress) {
 
-        switch (loopCounter)
-        {
-            case 1:
-                image.setImageDrawable(title1);
-                break;
-            case 2:
-                image.setImageDrawable(title2);
-                break;
-            case 3:
-                image.setImageDrawable(title3);
-                break;
-            case 4:
-                image.setImageDrawable(title4);
-                break;
-            default:
-                image.setImageDrawable(title4);
-                break;
+        if (loopCounter < images.size()) {
+            image.setImageDrawable(images.get(loopCounter));
         }
+
         loopCounter++;
     }
 

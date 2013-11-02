@@ -1,6 +1,5 @@
 package edu.SMU.PingItApp;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,48 +17,15 @@ public class AboutPageActivity extends Activity {
         setContentView(R.layout.activity_about_page);
 
         ImageView gymImageView = (ImageView) findViewById(R.id.innovation_gym_image_view);
-        gymImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.setAction(Intent.ACTION_VIEW);
-                intent.addCategory(Intent.CATEGORY_BROWSABLE);
-                intent.setData(Uri.parse("http://smugym.com"));
-                startActivity(intent);
-            }
-
-        });
+        gymImageView.setOnClickListener(new ImageURLListener("http://smugym.com"));
 
         ImageView hackathonImageView = (ImageView) findViewById(R.id.hackathon_image_view);
-        hackathonImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.setAction(Intent.ACTION_VIEW);
-                intent.addCategory(Intent.CATEGORY_BROWSABLE);
-                intent.setData(Uri.parse("http://the20over20.com"));
-                startActivity(intent);
-            }
-
-        });
+        hackathonImageView.setOnClickListener(new ImageURLListener("http://the20over20.com"));
 
         ImageView smuLyleImageView = (ImageView) findViewById(R.id.smu_lyle_image_view);
-        smuLyleImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.setAction(Intent.ACTION_VIEW);
-                intent.addCategory(Intent.CATEGORY_BROWSABLE);
-                intent.setData(Uri.parse("http://lyle.smu.edu"));
-                startActivity(intent);
-            }
+        smuLyleImageView.setOnClickListener(new ImageURLListener("http://lyle.smu.edu"));
 
-        });
-
-        ActionBar actionBar = getActionBar();
-        actionBar.setHomeButtonEnabled(true);
-        actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setIcon(R.drawable.navigation_back);
+        ActionBarHelper.setLeftActionBar(this, R.drawable.navigation_back);
     }
 
 
@@ -74,5 +40,22 @@ public class AboutPageActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem menuItem) {
         finish();
         return true;
+    }
+
+    private class ImageURLListener implements View.OnClickListener {
+        private String targetURL;
+
+        ImageURLListener(String targetURL) {
+            this.targetURL = targetURL;
+        }
+
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_VIEW);
+            intent.addCategory(Intent.CATEGORY_BROWSABLE);
+            intent.setData(Uri.parse(targetURL));
+            startActivity(intent);
+        }
     }
 }

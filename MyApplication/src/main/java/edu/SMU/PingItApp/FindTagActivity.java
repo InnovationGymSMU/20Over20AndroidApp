@@ -1,6 +1,5 @@
 package edu.SMU.PingItApp;
 
-import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
@@ -40,10 +39,7 @@ public class FindTagActivity extends Activity {
         maxVolume = audio.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         ringerMode = audio.getRingerMode();
 
-        ActionBar actionBar = getActionBar();
-        actionBar.setHomeButtonEnabled(true);
-        actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setIcon(R.drawable.navigation_back);
+        ActionBarHelper.setLeftActionBar(this, R.drawable.navigation_back);
 
         isPinging = false;
         pingButton = (Button) findViewById(R.id.pingButton);

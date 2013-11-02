@@ -9,40 +9,34 @@ import android.view.Menu;
 import android.os.Handler;
 import android.widget.ImageView;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class SplashScreenActivity extends Activity {
 
-    private int loopCounter = 1;
-    private static int SPLASH_TIME_OUT = 2000;
-    ImageView appLogo;
-    Drawable title1;
-    Drawable title2;
-    Drawable title3;
-    Drawable title4;
-    AppLoadImageCycleTask task;
     public static final String PREFS_NAME = "PingItPreferences";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-
-
     }
 
     @Override
     public void onStart() {
         super.onStart();
 
-        appLogo = (ImageView) findViewById(R.id.splash_screen_image_view);
-        title1 = getResources().getDrawable(R.drawable.title_1);
-        title2 = getResources().getDrawable(R.drawable.title_2);
-        title3 = getResources().getDrawable(R.drawable.title_3);
-        title4 = getResources().getDrawable(R.drawable.title_4);
+        ImageView appLogo = (ImageView) findViewById(R.id.splash_screen_image_view);
+        Drawable title1 = getResources().getDrawable(R.drawable.title_1);
+        Drawable title2 = getResources().getDrawable(R.drawable.title_2);
+        Drawable title3 = getResources().getDrawable(R.drawable.title_3);
+        Drawable title4 = getResources().getDrawable(R.drawable.title_4);
 
-        task = new AppLoadImageCycleTask(appLogo, this);
-        task.setAllDrawables(title1, title2, title3, title4);
+        AppLoadImageCycleTask task = new AppLoadImageCycleTask(appLogo, this);
+        List<Drawable> allImages = Arrays.asList(title1, title2, title3, title4);
+        task.setAllDrawables(allImages);
         task.execute(null);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -60,7 +54,6 @@ public class SplashScreenActivity extends Activity {
             SharedPreferences.Editor editor = settings.edit();
             editor.putBoolean("firstLaunch", false);
             editor.commit();
-
 
             Intent intent = new Intent(this, InitialRegisterActivity.class);
             startActivity(intent);

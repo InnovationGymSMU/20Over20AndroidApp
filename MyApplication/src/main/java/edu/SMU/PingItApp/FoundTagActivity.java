@@ -18,17 +18,12 @@ public class FoundTagActivity extends Activity {
     private Button submitButton;
     private EditText serialSubmit;
 
-    private boolean serialFilled;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_found_tag);
 
-        ActionBar actionBar = getActionBar();
-        actionBar.setHomeButtonEnabled(true);
-        actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setIcon(R.drawable.navigation_back);
+        ActionBarHelper.setLeftActionBar(this, R.drawable.navigation_back);
 
         submitButton = (Button) findViewById(R.id.submit_lost_tag);
         submitButton.setEnabled(false);
@@ -43,21 +38,18 @@ public class FoundTagActivity extends Activity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-                String temp = serialSubmit.getText().toString();
-                if (temp.matches("")) {
-                    serialFilled = false;
-                    submitButton.setEnabled(false);
-                    submitButton.setBackgroundResource(R.drawable.custom_inactive_button_design);
-                }
+
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if(serialFilled == true) {
+                if (serialSubmit.getText().toString().equals("")) {
+                    submitButton.setEnabled(false);
+                    submitButton.setBackgroundResource(R.drawable.custom_inactive_button_design);
+                } else {
                     submitButton.setEnabled(true);
                     submitButton.setBackgroundResource(R.drawable.custom_button_design);
                 }
-                serialFilled = true;
             }
         });
     }
@@ -77,10 +69,7 @@ public class FoundTagActivity extends Activity {
     }
 
     public void goBackToMainPage(View view) {
-        Intent intent = new Intent(this, MainScreenActivity.class);
-        startActivity(intent);
-        finish();
-
         Toast.makeText(this, "Thank you for reporting. You kind soul!", Toast.LENGTH_LONG).show();
+        finish();
     }
 }
