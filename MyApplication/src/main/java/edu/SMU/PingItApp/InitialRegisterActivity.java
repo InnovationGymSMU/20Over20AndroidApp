@@ -37,6 +37,8 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Activity which displays a login screen to the user, offering registration as
@@ -44,6 +46,7 @@ import java.net.URLEncoder;
  */
 public class InitialRegisterActivity extends Activity {
 
+    private static final String tag = "InitialRegisterActivity";
 
     // Values for email and password at the time of the login attempt.
     private boolean usernameFilled;
@@ -125,15 +128,46 @@ public class InitialRegisterActivity extends Activity {
         if (view.getId() == R.id.skip_button) {
             Intent intent = new Intent(this, MainScreenActivity.class);
             startActivity(intent);
+            finish();
         } else {
-            String username = usernameView.getText().toString();
-            String email = emailView.getText().toString();
-            username = URLEncoder.encode(username, "UTF-8");
-            email = URLEncoder.encode(email, "UTF-8");
-            new RegistrationThread(this).execute(username, email);
+            Map<String, String> requestParams = new TreeMap<String, String>();
+            requestParams.put("action", "register");
+            requestParams.put("email", URLEncoder.encode(emailView.getText().toString(), "UTF-8"));
+            requestParams.put("name", URLEncoder.encode(usernameView.getText().toString(), "UTF-8"));
+
+            GETRequestTask registerTask = new GETRequestTask(new GETRequestTask.GETRequestResponseHandler() {
+                @Override
+                public void handleResponse(String response) {
+                    handleRegistrationResponse(response.split(" "));
+                }
+            });
+            registerTask.setTargetURL(getString(R.string.remote_server_address) + "registration.php");
+            registerTask.setRequestParams(requestParams);
+            registerTask.execute(null);
+
+            //new RegistrationThread(this).execute(username, email);
         }
     }
 
+    private void handleRegistrationResponse(String[] result) {
+        if (result != null && result.length == 2) {
+            if ("Found".equals(result[1].trim())) {
+                Toast.makeText(this, "Welcome back!", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(this, "Welcome to the PingIt network!", Toast.LENGTH_LONG).show();
+            }
+            SharedPreferences preferences = this.getSharedPreferences(SplashScreenActivity.PREFS_NAME, 0);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putInt("GlobalUserID", Integer.parseInt(result[0].trim()));
+            editor.commit();
+            Log.d(tag, "New global user ID: " + preferences.getInt("GlobalUserID", -1));
+        }
+        Intent intent = new Intent(this, MainScreenActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    /*
     private class RegistrationThread extends AsyncTask<String, Object, String[]> {
         private static final String tag = "RegistrationThread";
         private InitialRegisterActivity activity;
@@ -184,5 +218,5 @@ public class InitialRegisterActivity extends Activity {
             Intent intent = new Intent(activity, MainScreenActivity.class);
             startActivity(intent);
         }
-    }
+    }*/
 }
